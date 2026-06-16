@@ -17,18 +17,28 @@ body {
     color: #292524;
 }
 
+/* ========================================================
+   NAVIGATION BAR STRUCTURAL GRID
+   ======================================================== */
+
 /* Navigation Bar Structure - Deep Charcoal Top Accent Block */
 .navbar {
     background-color: #292524;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centers the middle menu links flawlessly */
     align-items: center;
-    padding: 10px 30px; /* Balanced padding window to accommodate brand graphics */
+    padding: 10px 30px; 
     border-bottom: 1px solid #1c1917;
+    position: relative;     /* Crucial boundary container for left/right absolute placement */
+    min-height: 68px;       /* Keeps navbar vertical height consistent */
 }
 
 /* Left Side: Container layout for company branding elements */
 .company-logo {
+    position: absolute;
+    left: 30px;             /* Snaps logo group to the absolute left margin padding line */
+    top: 50%;
+    transform: translateY(-50%); /* Keeps branding image elements vertically aligned */
     display: flex;
     align-items: center;
 }
@@ -83,10 +93,15 @@ body {
     display: flex;
     align-items: center;
     gap: 24px;
+    margin: 0 auto;         /* Automatically balances side tracking space */
 }
 
 /* Right Action Button Container */
 .nav-links-right {
+    position: absolute;
+    right: 30px;            /* Snaps search and button groups to the absolute right margin padding line */
+    top: 50%;
+    transform: translateY(-50%); /* Keeps container items vertically centered */
     display: flex;
     align-items: center;
     gap: 20px;
@@ -180,8 +195,6 @@ body {
     border-color: #ffffff;
 }
 
-/* ======================================================== */
-
 /* Distinct styling for the Call-to-Action Inquiry Button - Crisp white item inside dark nav */
 .inquiry-btn {
     background-color: #ffffff;
@@ -198,6 +211,10 @@ body {
     outline: 1px solid #ffffff;
 }
 
+/* ========================================================
+   MAIN CONTENT ARCHITECTURE LAYOUTS
+   ======================================================== */
+
 /* Main Body Content Formatting Base Container Layout */
 .content-container {
     max-width: 850px;
@@ -212,9 +229,7 @@ body {
     text-align: center;
 }
 
-/* ========================================================
-   GLOBAL COMPONENT CARDS WITH BORDERS
-   ======================================================== */
+/* GLOBAL COMPONENT CARDS WITH BORDERS */
 .project-section, 
 .award-section, 
 .news-section, 
@@ -502,10 +517,14 @@ body {
         gap: 15px;
         padding: 15px 20px;
         text-align: center;
+        min-height: auto; /* Overrides desktop absolute constraints context */
     }
 
-    /* Centers branding logo and text layouts on mobile grids */
-    .company-logo {
+    /* Resets tracking values so containers wrap cleanly on viewports */
+    .company-logo,
+    .nav-links-right {
+        position: static;
+        transform: none;
         justify-content: center;
         width: 100%;
     }
@@ -538,7 +557,6 @@ body {
     /* Stacks your search container bar and CTA box buttons nicely */
     .nav-links-right {
         flex-direction: column-reverse;
-        width: 100%;
         gap: 15px;
         margin-top: 5px;
     }
