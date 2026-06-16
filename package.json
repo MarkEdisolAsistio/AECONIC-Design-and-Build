@@ -3,7 +3,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
-    "mongodb": "^7.3.0",
+    "mongodb": "3.7",
     "mongoose": "^9.7.0",
     "multer": "^2.2.0"
   }
