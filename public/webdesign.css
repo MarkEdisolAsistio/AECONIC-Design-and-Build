@@ -23,25 +23,22 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px; /* Adjusted padding slightly for image optimization */
+    padding: 10px 30px; /* Balanced padding window to accommodate brand graphics */
     border-bottom: 1px solid #1c1917;
 }
 
-/* Left Side: Styling for Company Logo Element */
+/* Left Side: Container layout for company branding elements */
 .company-logo {
-    font-size: 22px; 
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.5px;
     display: flex;
     align-items: center;
 }
 
-/* Link wrapper around the navbar logo image */
+/* Clickable container link grouping the logo and inline typography */
 .logo-link {
     display: inline-flex;
     text-decoration: none;
     align-items: center;
+    gap: 12px; /* Creates clean breathing room between image and textual branding */
 }
 
 /* Forces logo image to fit nicely within the navbar track dimensions */
@@ -56,6 +53,29 @@ body {
 /* Interactive hover expansion feedback rule */
 .logo-link:hover .nav-logo {
     transform: scale(1.03);
+}
+
+/* Typography structural positioning layout */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+}
+
+/* Bold Branding Typography Rule */
+.brand-bold {
+    font-size: 20px;
+    font-weight: 800; /* Extra prominent bolding weight allocation */
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* Normal/Light Subtext Typography Rule */
+.brand-light {
+    font-size: 13px;
+    font-weight: 400; /* Clean standard book weight */
+    color: #d6d3d1;   /* Soft warm-gray tint for premium architectural contrast */
 }
 
 /* Center Menu Links Container */
@@ -458,10 +478,10 @@ body {
    ======================================================== */
 
 .rich-content-view img {
-    max-width: 100%;    /* Image scales nicely to stay inside page box */
-    height: auto;       /* Retains clear aspect ratio */
+    max-width: 100%;    
+    height: auto;       
     display: block;
-    margin: 15px 0;     /* Clear structural spacing */
+    margin: 15px 0;     
     border-radius: 6px; 
 }
 
@@ -484,13 +504,13 @@ body {
         text-align: center;
     }
 
-    /* Adjust logo centration loop on small displays */
+    /* Centers branding logo and text layouts on mobile grids */
     .company-logo {
         justify-content: center;
         width: 100%;
     }
 
-    /* Stacks center links vertically */
+    /* Stacks center options link tracks vertically */
     .nav-links-center {
         flex-direction: column;
         width: 100%;
@@ -515,7 +535,7 @@ body {
         pointer-events: auto;
     }
 
-    /* Stacks search container and CTA inquiry box button nicely */
+    /* Stacks your search container bar and CTA box buttons nicely */
     .nav-links-right {
         flex-direction: column-reverse;
         width: 100%;
