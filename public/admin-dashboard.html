@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard Workspace</title>
+    <link rel="stylesheet" href="webdesign.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <style>
+        /* Sub-Navbar Configuration Layout */
+        .sub-navbar {
+            background-color: #f3f4f6;
+            border-bottom: 1px solid #d1d5db;
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 12px;
+        }
+        .sub-navbar button {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            background: white;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 4px;
+            color: #4b5563;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .sub-navbar button.active {
+            background: #374151;
+            color: white;
+            border-color: #374151;
+            font-weight: bold;
+        }
+        .sub-navbar button:hover:not(.active) {
+            background-color: #e5e7eb;
+        }
+
+        /* Preview Toggle Match Core Theme Palette */
+        .preview-trigger-btn {
+            background: #374151 !important;
+            color: white !important;
+            border-color: #374151 !important;
+            font-weight: bold;
+        }
+        .preview-trigger-btn:hover {
+            background: #1f2937 !important;
+        }
+
+        /* Dynamic Main Workspace Grid Setup */
+        .dashboard-container {
+            max-width: 100%;
+            margin: 20px;
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 140px);
+        }
+        
+        /* Left Hand Side Input Board Form Panel */
+        .main-panel {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        /* Right Hand Side Live Preview Container */
+        .preview-panel {
+            display: none;
+        }
+
+        /* Active Full Screen Layout Override Rules */
+        .preview-panel.show-preview {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #e5e5e5;
+            z-index: 9999;
+            padding: 0;
+        }
+
+        /* Fixed Top Action Bar for Full Screen Preview Mode */
+        .preview-header {
+            background: #374151;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-preview-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+        .close-preview-btn:hover {
+            background: #dc2626;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            flex: 1;
+            border: none;
+            background: #e5e5e5;
+        }
+        
+        .input-box {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        #editor-container {
+            height: 280px;
+            margin: 8px 0 20px 0;
+            border-radius: 0 0 4px 4px;
+        }
+        .ql-toolbar {
+            border-radius: 4px 4px 0 0;
+            background-color: #f9fafb;
+        }
+        .action-btn {
+            padding: 10px 20px;
+            background: #374151;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .cancel-btn {
+            padding: 10px 20px;
+            background: #9ca3af;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            display: none;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .edit-btn {
+            color: #2563eb;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .delete-btn {
+            color: #dc2626;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="company-logo">Webpage Management Center</div>
+        <a href="/admin-logout" class="nav-item inquiry-btn">Log Out</a>
+    </nav>
+
+    <div class="sub-navbar">
+        <div class="nav-tabs">
+            <button onclick="switchTab('projects')" id="btn-projects" class="active">Projects</button>
+            <button onclick="switchTab('awards')" id="btn-awards">Awards</button>
+            <button onclick="switchTab('news')" id="btn-news">News & Updates</button>
+            <button onclick="switchTab('blogs')" id="btn-blogs">Blog Articles</button>
+            <button onclick="switchTab('events')" id="btn-events">Events</button>
+            <button onclick="switchTab('careers')" id="btn-careers">Careers</button>
+        </div>
+        <div class="nav-actions">
+            <button onclick="togglePreviewPane(true)" class="preview-trigger-btn">👁️ Fullscreen Preview</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="main-panel">
+            <h2 id="panel-title" style="margin-bottom: 20px; color: #111827;">Manage Projects</h2>
+            <form id="managerForm" enctype="multipart/form-data">
+                <input type="hidden" id="itemId" name="id">
+                
+                <label style="font-weight: bold;">Title / Heading Entry</label>
+                <input type="text" id="contentTitle" name="title" class="input-box" required>
+                
+                <label style="font-weight: bold; color: #374151; display: block; margin-top: 5px;">Date</label>
+                <input type="date" id="contentDate" name="itemDate" class="input-box" required>
+                
+                <label style="font-weight: bold; margin-top: 10px; display: block;">Description</label>
+                <div id="editor-container"></div>
+
+                <label style="font-weight: bold; color: #374151; margin-top: 10px; display: block;">Upload Video (Up to 1.5GB)</label>
+                <input type="file" id="heavyVideo" name="heavyVideo" class="input-box" accept="video/*" style="border: 1px dashed #374151; padding: 12px; background: #f9fafb;">
+
+                <div id="uploadProgress" style="display:none; color:#2563eb; font-weight:bold; margin-bottom:15px; font-size:14px;">
+                    ⏳ Uploading file... Please keep this page open.
+                </div>
+
+                <button type="submit" id="submitBtn" class="action-btn">Commit Entry Update</button>
+                <button type="button" id="cancelBtn" class="cancel-btn" onclick="resetFormState()">Cancel Edit</button>
+            </form>
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #e5e7eb;">
+            <h3>Active Content Listing</h3>
+            <div id="itemsContainer" style="margin-top: 15px;"></div>
+        </div>
+
+        <div id="previewPane" class="preview-panel">
+            <div class="preview-header">
+                <span>Live Website Page Preview Mode</span>
+                <button onclick="togglePreviewPane(false)" class="close-preview-btn">❌ Close Fullscreen</button>
+            </div>
+            <iframe id="liveFrame" class="preview-iframe" src="/projects.html"></iframe>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+        let currentCategory = 'projects';
+        let quill;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            quill = new Quill('#editor-container', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'align': [] }],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                }
+            });
+            loadCurrentContent();
+        });
+
+        function togglePreviewPane(shouldShow) {
+            const pane = document.getElementById('previewPane');
+            if (shouldShow) {
+                document.getElementById('liveFrame').contentWindow.location.reload();
+                pane.classList.add('show-preview');
+            } else {
+                pane.classList.remove('show-preview');
+            }
+        }
+        
+        function switchTab(category) {
+            currentCategory = category;
+            document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${category}`).classList.add('active');
+            document.getElementById('panel-title').innerText = `Manage ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+            
+            const frame = document.getElementById('liveFrame');
+            if (category === 'projects') frame.src = '/projects.html';
+            else if (category === 'awards') frame.src = '/about-awards.html';
+            else if (category === 'news') frame.src = '/news-updates.html';
+            else if (category === 'blogs') frame.src = '/blog-articles.html';
+            else if (category === 'events') frame.src = '/news-events.html';
+            else if (category === 'careers') frame.src = '/careers.html';
+            
+            resetFormState();
+            loadCurrentContent();
+        }
+
+        async function loadCurrentContent() {
+            const res = await fetch('/api/content');
+            const data = await res.json();
+            const container = document.getElementById('itemsContainer');
+            container.innerHTML = '';
+            
+            if (data[currentCategory]) {
+                data[currentCategory].forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = 'item-row';
+                    
+                    let cleanTextPreview = item.desc.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 90);
+                    let videoBadge = item.videoPath ? `<span style="font-size:11px;background:#374151;color:white;padding:2px 6px;border-radius:4px;margin-left:8px;">VIDEO</span>` : '';
+                    let dateBadge = item.itemDate ? `<span style="font-size:11px; background:#e5e7eb; color:#4b5563; padding:2px 6px; border-radius:4px; margin-left:8px;">📅 ${item.itemDate}</span>` : '';
+                    
+                    row.innerHTML = `
+                        <div>
+                            <strong>${item.title}</strong>${videoBadge}${dateBadge}
+                            <p style="font-size:13px;color:#6b7280;margin-top:4px;">${cleanTextPreview}...</p>
+                        </div>
+                        <div class="btn-group">
+                            <button class="edit-btn" onclick="startEdit(${item.id}, '${escapeHtml(item.title)}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteItem(${item.id})">Remove</button>
+                        </div>
+                    `;
+                    row.dataset.rawDesc = item.desc;
+                    row.dataset.rawDate = item.itemDate || '';
+                    container.appendChild(row);
+                });
+            }
+        }
+
+        document.getElementById('managerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const progressIndicator = document.getElementById('uploadProgress');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Streaming Payload...";
+            progressIndicator.style.display = "block";
+
+            const formData = new FormData();
+            
+            const itemIdVal = document.getElementById('itemId').value;
+            if (itemIdVal && itemIdVal.trim() !== '') {
+                formData.append('id', itemIdVal);
+            }
+            
+            formData.append('title', document.getElementById('contentTitle').value);
+            formData.append('itemDate', document.getElementById('contentDate').value);
+            formData.append('desc', quill.getSemanticHTML());
+            
+            const fileInput = document.getElementById('heavyVideo');
+            if (fileInput.files[0]) {
+                formData.append('heavyVideo', fileInput.files[0]);
+            }
+
+            try {
+                const res = await fetch(`/api/content/${currentCategory}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    resetFormState();
+                    loadCurrentContent();
+                } else {
+                    alert("Error: " + (result.error || "Failed to save data."));
+                }
+            } catch (err) {
+                alert("Network timeout or stream failure.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Commit Entry Update";
+                progressIndicator.style.display = "none";
+                document.getElementById('heavyVideo').value = ""; 
+            }
+        });
+
+        function startEdit(id, title) {
+            const rows = document.querySelectorAll('.item-row');
+            let matchedDesc = '';
+            let matchedDate = '';
+            
+            rows.forEach(r => {
+                if(r.innerHTML.includes(`startEdit(${id}`)) {
+                    matchedDesc = r.dataset.rawDesc;
+                    matchedDate = r.dataset.rawDate || '';
+                }
+            });
+
+            document.getElementById('itemId').value = id;
+            document.getElementById('contentTitle').value = title;
+            document.getElementById('contentDate').value = matchedDate;
+            quill.clipboard.dangerouslyPasteHTML(matchedDesc);
+            
+            document.getElementById('submitBtn').innerText = "Save Changes";
+            document.getElementById('cancelBtn').style.display = "inline-block";
+        }
+
+        function resetFormState() {
+            document.getElementById('itemId').value = '';
+            document.getElementById('managerForm').reset();
+            quill.setContents([]);
+            document.getElementById('submitBtn').innerText = "Commit Entry Update";
+            document.getElementById('cancelBtn').style.display = "none";
+        }
+
+        async function deleteItem(id) {
+            if (confirm("Permanently remove this content entry item?")) {
+                await fetch(`/api/content/${currentCategory}/${id}`, { method: 'DELETE' });
+                loadCurrentContent();
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>

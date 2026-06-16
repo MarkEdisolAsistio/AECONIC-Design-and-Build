@@ -1,0 +1,565 @@
+/* Reset default browser margins and set a clean font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', Times, serif;
+}
+
+/* Enable smooth sliding viewport transitions */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Base Body Style */
+body {
+    background-color: #e5e5e5;
+    color: #292524;
+}
+
+/* Navigation Bar Structure - Deep Charcoal Top Accent Block */
+.navbar {
+    background-color: #292524;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #1c1917;
+}
+
+/* Left Side: Styling for Company Name - Contrast White text over Navbar */
+.company-logo {
+    font-size: 22px; 
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* Center Menu Links Container */
+.nav-links-center {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Right Action Button Container */
+.nav-links-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Individual Menu Items - Grayed out text inside dark Navbar context */
+.nav-item {
+    text-decoration: none;
+    color: #d6d3d1;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Changes text items to bright white on hover */
+.nav-item:hover {
+    color: #ffffff;
+}
+
+/* ========================================================
+   DROPDOWN & ARROW ANIMATION MECHANICS
+   ======================================================== */
+
+/* Parent anchor for position layering */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Draws a precise geometric chevron/V-shape matching navbar text theme */
+.arrow-icon {
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid #d6d3d1;
+    border-bottom: 2px solid #d6d3d1;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: inline-block;
+    margin-top: -3px;
+}
+
+/* The sub-menu block itself - Deep Charcoal box to contrast with body ground */
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: #292524;
+    min-width: 240px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid #1c1917;
+    padding: 8px 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+/* Dropdown Sub-menu Items Styling */
+.dropdown-menu a {
+    color: #d6d3d1;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Subtle charcoal highlight item row color on link selection paths */
+.dropdown-menu a:hover {
+    background-color: #44403c;
+    color: #ffffff;
+}
+
+/* TRIGGER STATE: Activated when hover state starts */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* TRIGGER STATE: Rotates arrow icon and colors white on element hover */
+.dropdown:hover .arrow-icon {
+    transform: rotate(-135deg);
+    border-color: #ffffff;
+}
+
+/* ======================================================== */
+
+/* Distinct styling for the Call-to-Action Inquiry Button - Crisp white item inside dark nav */
+.inquiry-btn {
+    background-color: #ffffff;
+    color: #292524 !important;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Inverts elegantly to deep gray container outline style on mouseover */
+.inquiry-btn:hover {
+    background-color: #292524;
+    color: #ffffff !important;
+    outline: 1px solid #ffffff;
+}
+
+/* Main Body Content Formatting Base Container Layout */
+.content-container {
+    max-width: 850px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.content-container h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #1c1917;
+    text-align: center;
+}
+
+/* ========================================================
+   GLOBAL COMPONENT CARDS WITH BORDERS (Matches image_4b7543.png)
+   ======================================================== */
+.project-section, 
+.award-section, 
+.news-section, 
+.blog-section, 
+.event-section, 
+.career-section {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 35px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Dynamic Content Card Internal Section Headings */
+.content-container article h2 {
+    font-size: 26px;
+    color: #1c1917;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb; /* Fine light gray horizontal divider line */
+    text-align: left;
+}
+
+/* ========================================================
+   SEARCH BAR & VECTOR SEARCH ICON MECHANICS
+   ======================================================== */
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 6px 35px 6px 12px; 
+    font-size: 14px;
+    border: 1px solid #44403c;
+    border-radius: 20px; 
+    outline: none;
+    width: 180px; 
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: #1c1917;
+    color: #ffffff;
+}
+
+.search-input:focus {
+    border-color: #ffffff;
+    width: 220px; 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px; 
+    width: 8px;
+    height: 8px;
+    border: 2px solid #d6d3d1; 
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.search-icon::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 2px;
+    height: 6px;
+    background-color: #d6d3d1; 
+    transform: rotate(-45deg); 
+    display: block;
+}
+
+.search-input:focus + .search-icon,
+.search-input:focus + .search-icon::after {
+    border-color: #ffffff;
+    background-color: #ffffff; 
+}
+.search-input:focus + .search-icon {
+    background-color: transparent; 
+}
+
+/* ========================================================
+   HORIZONTAL NAV MEGA-DROPDOWN MENU EXTENSIONS
+   ======================================================== */
+
+/* Expanded wrapper containing the horizontal cards grid panel layout */
+.project-preview-menu {
+    display: flex !important;
+    flex-direction: column;
+    width: 680px; 
+    padding: 15px !important;
+    background-color: #292524 !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Wrapper block holding the 3 items column tracks side-by-side */
+.dropdown-items-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Individual preview card item layout configuration */
+.preview-item {
+    flex: 1;
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: stretch !important;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #44403c;
+    border-radius: 6px;
+    padding: 10px !important;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.preview-item:hover {
+    background-color: #44403c !important;
+    transform: translateY(-2px);
+}
+
+/* Mini thumbnail image window placeholder */
+.preview-thumbnail {
+    width: 100%;
+    height: 90px;
+    background-color: #1c1917;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease;
+}
+
+.preview-item:hover .preview-thumbnail {
+    border-color: #ffffff;
+}
+
+/* Vertical alignments for internal content descriptions */
+.preview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Primary text indicator header */
+.preview-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Subtle secondary documentation summary details */
+.preview-desc {
+    font-size: 11px;
+    color: #a8a29e;
+    line-height: 1.4;
+    white-space: normal;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Footer box holding our custom action button */
+.dropdown-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    border-top: 1px solid #44403c;
+    padding-top: 10px;
+    width: 100%;
+}
+
+.see-more-btn {
+    color: #292524 !important;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.see-more-btn:hover {
+    background-color: #292524;
+    color: #ffffff !important;
+    outline: 1px solid #ffffff;
+}
+
+/* ========================================================
+   LIVE SEARCH RESULTS DROPDOWN PREVIEW (LIGHT THEME)
+   ======================================================== */
+
+.search-preview-box {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    width: 280px;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 6px 0;
+    z-index: 2000;
+}
+
+.search-preview-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.search-preview-item:last-child {
+    border-bottom: none;
+}
+
+.search-preview-item:hover {
+    background-color: #e5e5e5;
+}
+
+.search-preview-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #374151;
+}
+
+.search-preview-desc {
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.3;
+    white-space: normal;
+}
+
+.search-no-results {
+    padding: 12px;
+    font-size: 13px;
+    color: #9ca3af;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ========================================================
+   RICH TEXT INLINE CONTAINER IMAGE CONSTRAINTS
+   ======================================================== */
+
+.rich-content-view img {
+    max-width: 100%;    /* Image scales nicely to stay inside page box */
+    height: auto;       /* Retains clear aspect ratio */
+    display: block;
+    margin: 15px 0;     /* Clear structural spacing */
+    border-radius: 6px; 
+}
+
+.rich-content-view video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* ========================================================
+   MOBILE & TABLET RESPONSIVE VIEW framework EXTENSIONS
+   ======================================================== */
+
+@media screen and (max-width: 768px) {
+    /* 1. Navbar Structural Realignment */
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+        text-align: center;
+    }
+
+    /* Stacks your center menu links link tracks vertically */
+    .nav-links-center {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    /* Allows your menus to sit relatively on mobile instead of throwing absolute breaking widths */
+    .dropdown-menu {
+        position: static;
+        transform: none !important;
+        width: 100%;
+        box-shadow: none;
+        background-color: rgba(0, 0, 0, 0.15); /* Darkens slightly to create depth */
+        margin-top: 5px;
+        display: none; /* Keeps hidden unless hovered/toggled */
+    }
+
+    /* Expands drop selections cleanly when matching active parent states */
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Stacks your search container bar and CTA inquiry box button nicely */
+    .nav-links-right {
+        flex-direction: column-reverse;
+        width: 100%;
+        gap: 15px;
+        margin-top: 5px;
+    }
+
+    .search-container, 
+    .search-input {
+        width: 100% !important; /* Forces search input bar to use available screen row width */
+    }
+
+    .inquiry-btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px; /* Thicker touch target for thumbs */
+    }
+
+    /* 2. Main Page Box Adaptations */
+    .content-container {
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .content-container h1 {
+        font-size: 28px; /* Scales down massive headings so they don't break lines awkwardly */
+        margin-bottom: 25px;
+    }
+
+    /* 3. Global Cards Layout (Matches your image designs) */
+    .project-section, 
+    .award-section, 
+    .news-section, 
+    .blog-section, 
+    .event-section, 
+    .career-section {
+        padding: 20px 15px; /* Softer margins to maximize text display layout space on narrow phones */
+        margin-bottom: 25px !important;
+    }
+
+    .content-container article h2 {
+        font-size: 20px; /* Clean header downscaling */
+    }
+
+    /* 4. Horizontal Navigation Dropping Panel Reset */
+    /* Resets the 680px horizontal panel into a clean vertical stack block on phones */
+    .project-preview-menu {
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .dropdown-items-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .preview-item {
+        flex-direction: row !important; /* Keeps thumbnail beside description on screen lines */
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .preview-thumbnail {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .dropdown-footer {
+        justify-content: center;
+    }
+
+    .see-more-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
