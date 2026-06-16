@@ -54,7 +54,7 @@
             transition: fill 0.25s ease;
         }
         /* ========================================================
-           BRAND COLOR THEMES & HOVER INVERSION LOGIC
+            BRAND COLOR THEMES & HOVER INVERSION LOGIC
            ======================================================== */
         /* --- EMAIL BUTTON --- */
         .btn-email {
@@ -118,8 +118,15 @@
 <body>
     <nav class="navbar">
         <div class="company-logo">
-            AECONIC Design and Build
+            <a href="webpage.html" class="logo-link">
+                <img src="AECONIC-LOGO.jpg" alt="AECONIC Design and Build Logo" class="nav-logo">
+                <div class="logo-text">
+                    <span class="brand-bold">AECONIC</span>
+                    <span class="brand-light">Design and Build</span>
+                </div>
+            </a>
         </div>
+        
         <div class="nav-links-center">
             <a href="webpage.html" class="nav-item">
                 Home
@@ -145,7 +152,6 @@
                     Our Projects <span class="arrow-icon"></span>
                 </a>
                 <div class="dropdown-menu project-preview-menu">
-                    <!-- Dropdown previews will be injected here dynamically by JavaScript -->
                     <a href="projects.html#project1" class="preview-item">
                         <div class="preview-thumbnail"></div>
                         <div class="preview-text">
@@ -208,7 +214,6 @@
             Contact Us
         </h1>
         
-        <!-- PRESERVED SUBTITLE ELEMENT COMPONENT -->
         <p class="page-subtitle">
             Let's work together! Reach out via my social media or email.
         </p>
