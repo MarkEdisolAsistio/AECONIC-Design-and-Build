@@ -13,7 +13,8 @@
             padding: 40px;
             margin-bottom: 40px;
             text-align: left;
-            scroll-margin-top: 100px; 
+            /* Adjusted so anchor links jump cleanly exactly below your 68px solid navbar */
+            scroll-margin-top: 90px; 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         .project-section h2 {
@@ -104,7 +105,7 @@
         </div>
     </nav>
 
-    <main class="content-container" style="max-width: 900px; margin-top: 60px;">
+    <main class="content-container" style="max-width: 900px; margin: 128px auto 60px auto;">
         <h1 style="margin-bottom: 10px; color: #111827;">
             Our Projects
         </h1>
@@ -117,9 +118,12 @@
             <h2>
                 Project 1: Sample only
             </h2>
-            <p>
+            <p style="margin-bottom: 20px;">
                 This section documents our initial major project rollout. It features integrated infrastructure layouts, optimized response protocols, and modular design configurations built to maximize operational efficiency across all local department systems.
             </p>
+            <div class="rich-content-view">
+                <img src="your-editor-screenshot.jpg" alt="Project Dashboard Development Screenshot" style="width: 100%; height: auto; border-radius: 6px;">
+            </div>
         </article>
     </main>
 

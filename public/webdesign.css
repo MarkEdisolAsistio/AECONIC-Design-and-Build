@@ -21,22 +21,29 @@ body {
    NAVIGATION BAR STRUCTURAL GRID
    ======================================================== */
 
-/* Navigation Bar Structure - Deep Charcoal Top Accent Block */
+/* Navigation Bar Structure - Deep Charcoal Solid Top Accent Block & Sticky Lock */
 .navbar {
-    background-color: #292524;
+    background-color: #292524;                 
     display: flex;
-    justify-content: center; /* Centers the middle menu links flawlessly */
+    justify-content: center;                  /* Centers the middle menu links flawlessly */
     align-items: center;
     padding: 10px 30px; 
-    border-bottom: 1px solid #1c1917;
-    position: relative;     /* Crucial boundary container for left/right absolute placement */
-    min-height: 68px;       /* Keeps navbar vertical height consistent */
+    border-bottom: 1px solid #1c1917;         
+    
+    /* Sticky Positioning Attributes */
+    position: fixed;                          /* Completely pins navbar while scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    min-height: 68px;                         /* Keeps navbar vertical height consistent */
+    z-index: 2000;                            /* Keeps navigation bar over fixed scrolling layers */
 }
 
 /* Left Side: Container layout for company branding elements */
 .company-logo {
     position: absolute;
-    left: 30px;             /* Snaps logo group to the absolute left margin padding line */
+    left: 30px;                             /* Snaps logo group to the absolute left margin padding line */
     top: 50%;
     transform: translateY(-50%); /* Keeps branding image elements vertically aligned */
     display: flex;
@@ -212,6 +219,44 @@ body {
 }
 
 /* ========================================================
+   HOMEPAGE FULL SCREEN HERO PARALLAX MECHANICS
+   ======================================================== */
+
+.hero-parallax-bg {
+    background-image: url('AECONIC-BACKGROUND.jpg');
+    height: 100vh;            /* Reverted to 100vh to ensure it fills the vertical screen completely */
+    margin-top: 68px;         /* Shifts layout down safely below the solid fixed navbar */
+    width: 100%;
+    
+    /* Lock background layer fixed on viewport while document body tracks up */
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    position: relative;
+}
+
+/* Dark gradient mask to maximize overlay contrast bounds */
+.hero-parallax-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(41, 37, 36, 0.3), rgba(41, 37, 36, 0.1));
+}
+
+.hero-overlay-content {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* ========================================================
    MAIN CONTENT ARCHITECTURE LAYOUTS
    ======================================================== */
 
@@ -220,6 +265,8 @@ body {
     max-width: 850px;
     margin: 60px auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 20; /* Ensures content text shifts perfectly on top of fixed background box */
 }
 
 .content-container h1 {
@@ -250,7 +297,7 @@ body {
     color: #1c1917;
     margin-bottom: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #e5e7eb; /* Fine light gray horizontal divider line */
+    border-bottom: 1px solid #e5e7eb;
     text-align: left;
 }
 
@@ -319,7 +366,6 @@ body {
    HORIZONTAL NAV MEGA-DROPDOWN MENU EXTENSIONS
    ======================================================== */
 
-/* Expanded wrapper containing the horizontal cards grid panel layout */
 .project-preview-menu {
     display: flex !important;
     flex-direction: column;
@@ -330,14 +376,12 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* Wrapper block holding the 3 items column tracks side-by-side */
 .dropdown-items-container {
     display: flex;
     gap: 15px;
     width: 100%;
 }
 
-/* Individual preview card item layout configuration */
 .preview-item {
     flex: 1;
     display: flex !important;
@@ -358,7 +402,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Mini thumbnail image window placeholder */
 .preview-thumbnail {
     width: 100%;
     height: 90px;
@@ -374,14 +417,12 @@ body {
     border-color: #ffffff;
 }
 
-/* Vertical alignments for internal content descriptions */
 .preview-text {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-/* Primary text indicator header */
 .preview-title {
     font-size: 14px;
     font-weight: bold;
@@ -391,7 +432,6 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Subtle secondary documentation summary details */
 .preview-desc {
     font-size: 11px;
     color: #a8a29e;
@@ -404,7 +444,6 @@ body {
     overflow: hidden;
 }
 
-/* Footer box holding our custom action button */
 .dropdown-footer {
     display: flex;
     justify-content: flex-end;
@@ -513,11 +552,12 @@ body {
 @media screen and (max-width: 768px) {
     /* Navbar Structural Realignment */
     .navbar {
+        position: static;             /* Returns to document flow for mobile stack rendering */
         flex-direction: column;
         gap: 15px;
         padding: 15px 20px;
         text-align: center;
-        min-height: auto; /* Overrides desktop absolute constraints context */
+        min-height: auto; 
     }
 
     /* Resets tracking values so containers wrap cleanly on viewports */
