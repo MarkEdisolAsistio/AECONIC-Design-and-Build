@@ -1,57 +1,48 @@
+// 1. Load environment variables first
+require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const app = express();
+const mongoose = require('mongoose'); // Added Mongoose
 
-// MODIFIED FOR CLOUD DEPLOYMENT: Dynamic port allocation handled automatically
+const app = express();
 const PORT = process.env.PORT || 5500;
 
 // ========================================================
-// DIRECTORY MANIPULATION & PHYSICAL FILE DATABASE HOOKS
+// MONGODB CONNECTION SETUPS
 // ========================================================
 
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+    console.error("❌ ERROR: MONGO_URI is missing in your environment config!");
+    process.exit(1);
+}
+
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("🚀 Connected smoothly to Cloud MongoDB Atlas!"))
+  .catch(err => console.error("❌ Database connection error:", err));
+
+// Create a single flexible schema to hold all your website sections
+const ContentSchema = new mongoose.Schema({
+    category: { type: String, required: true, index: true }, // 'projects', 'news', 'blogs', etc.
+    id: { type: Number, required: true, unique: true },      // Keeps compatibility with your existing frontend code
+    title: { type: String, required: true },
+    desc: { type: String, required: true },
+    itemDate: { type: String, default: '' },
+    videoPath: { type: String, default: '' }
+}, { timestamps: true });
+
+const Content = mongoose.model('Content', ContentSchema);
+
+// Ensure the local upload folder exists for heavy files
 const uploadDir = path.join(__dirname, 'public/uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
-
-// Database file setup link on disk
-const dbFilePath = path.join(__dirname, 'data.json');
-
-// Reusable core helper function to load data safely from data.json
-function loadDatabase() {
-    const defaultData = {
-        projects: [{ id: 1, title: 'Project 1: Sample only', desc: '<p>Initial rolling infrastructure layout configurations.</p>', itemDate: '2026-06-16', videoPath: '' }],
-        news: [], blogs: [], events: [], careers: [], awards: []
-    };
-
-    try {
-        if (!fs.existsSync(dbFilePath)) {
-            // Write physical file if it doesn't exist yet
-            fs.writeFileSync(dbFilePath, JSON.stringify(defaultData, null, 4), 'utf8');
-            return defaultData;
-        }
-        const fileContent = fs.readFileSync(dbFilePath, 'utf8');
-        return JSON.parse(fileContent);
-    } catch (error) {
-        console.log("[ERROR] Failed reading local file database. Using temporary defaults.");
-        return defaultData;
-    }
-}
-
-// Reusable core helper function to save your data permanently to disk
-function saveDatabase(data) {
-    try {
-        fs.writeFileSync(dbFilePath, JSON.stringify(data, null, 4), 'utf8');
-    } catch (error) {
-        console.error("[ERROR] Physical disk write failure. Progress wasn't saved.");
-    }
-}
-
-// Initialize working state memory tracking loop directly from database file
-let websiteData = loadDatabase();
 
 // Configure Disk Storage Engine to stream heavy files straight to your uploads folder
 const storage = multer.diskStorage({
@@ -111,16 +102,45 @@ app.get('/admin-logout', (req, res) => {
 });
 
 // ========================================================
-// DYNAMIC DATA MANAGEMENT API CHANNELS
+// DYNAMIC DATA MANAGEMENT API CHANNELS (REFACTORED FOR MONGO)
 // ========================================================
 
-// Reload fresh content from disk on load
-app.get('/api/content', (req, res) => {
-    websiteData = loadDatabase();
-    res.json(websiteData);
+// Fetch all content organized by categories to feed your frontend layout map
+app.get('/api/content', async (req, res) => {
+    try {
+        const allItems = await Content.find({});
+        
+        // Structure the database output to look exactly like your old data.json layout map
+        const structuredData = {
+            projects: [], news: [], blogs: [], events: [], careers: [], awards: []
+        };
+
+        allItems.forEach(item => {
+            if (structuredData[item.category]) {
+                structuredData[item.category].push({
+                    id: item.id,
+                    title: item.title,
+                    desc: item.desc,
+                    itemDate: item.itemDate,
+                    videoPath: item.videoPath
+                });
+            }
+        });
+
+        // Insert a default sample object if projects array is completely empty (retaining your old file logic)
+        if (structuredData.projects.length === 0) {
+            structuredData.projects.push({ id: 1, title: 'Project 1: Sample only', desc: '<p>Initial rolling infrastructure layout configurations.</p>', itemDate: '2026-06-16', videoPath: '' });
+        }
+
+        res.json(structuredData);
+    } catch (error) {
+        console.error("[ERROR] Failed fetching data from MongoDB:", error);
+        res.status(500).json({ error: "Internal Database Server Error" });
+    }
 });
 
-app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), (req, res) => {
+// Add or Edit Item
+app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), async (req, res) => {
     const { category } = req.params;
     if (!req.body) req.body = {};
 
@@ -130,10 +150,8 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), (r
         return res.status(400).json({ success: false, error: 'Required text fields are missing.' });
     }
 
-    // Refresh database baseline map structure before push modifications
-    websiteData = loadDatabase();
-
-    if (!websiteData[category]) {
+    const validCategories = ['projects', 'news', 'blogs', 'events', 'careers', 'awards'];
+    if (!validCategories.includes(category)) {
         return res.status(400).json({ success: false, error: 'Invalid data category mapping token.' });
     }
 
@@ -142,52 +160,61 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), (r
         videoPath = '/uploads/' + req.file.filename;
     }
 
-    // EDIT MODE
-    if (id && id.trim() !== '') {
-        const itemIndex = websiteData[category].findIndex(item => item.id === parseInt(id));
-        if (itemIndex !== -1) {
-            websiteData[category][itemIndex].title = title;
-            websiteData[category][itemIndex].desc = desc;
-            websiteData[category][itemIndex].itemDate = itemDate || '';
+    try {
+        // EDIT MODE: If a numerical ID tracking parameter exists
+        if (id && id.trim() !== '') {
+            const targetId = parseInt(id);
+            const updateFields = { title, desc, itemDate: itemDate || '' };
             if (req.file) {
-                websiteData[category][itemIndex].videoPath = videoPath;
+                updateFields.videoPath = videoPath;
             }
-            // Commit changes to physical file
-            saveDatabase(websiteData);
-            return res.json({ success: true, item: websiteData[category][itemIndex] });
-        }
-    }
 
-    // ADD MODE
-    const newItem = { 
-        id: Date.now(), 
-        title, 
-        desc, 
-        itemDate: itemDate || '',
-        videoPath: videoPath 
-    };
-    
-    websiteData[category].push(newItem);
-    
-    // Commit changes to physical file permanently
-    saveDatabase(websiteData);
-    
-    res.json({ success: true, item: newItem });
+            const updatedItem = await Content.findOneAndUpdate(
+                { id: targetId, category: category },
+                { $set: updateFields },
+                { new: true }
+            );
+
+            if (updatedItem) {
+                return res.json({ success: true, item: updatedItem });
+            }
+        }
+
+        // ADD MODE: Create a brand new document store record
+        const newItem = new Content({
+            id: Date.now(), // Keeps your front-end timeline generation logic safe
+            category,
+            title,
+            desc,
+            itemDate: itemDate || '',
+            videoPath: videoPath
+        });
+
+        await newItem.save();
+        res.json({ success: true, item: newItem });
+
+    } catch (error) {
+        console.error("[ERROR] Failed manipulating database entries:", error);
+        res.status(500).json({ success: false, error: "Database transaction failure." });
+    }
 });
 
-app.delete('/api/content/:category/:id', requireAdmin, (req, res) => {
+// Delete Item
+app.delete('/api/content/:category/:id', requireAdmin, async (req, res) => {
     const { category, id } = req.params;
     
-    websiteData = loadDatabase();
-    
-    if (websiteData[category]) {
-        websiteData[category] = websiteData[category].filter(item => item.id !== parseInt(id));
+    try {
+        const targetId = parseInt(id);
+        const deletionResult = await Content.deleteOne({ id: targetId, category: category });
         
-        // Save database status post removal
-        saveDatabase(websiteData);
-        return res.json({ success: true });
+        if (deletionResult.deletedCount > 0) {
+            return res.json({ success: true });
+        }
+        res.status(404).json({ error: 'Target record could not be found.' });
+    } catch (error) {
+        console.error("[ERROR] Deletion transactional failure:", error);
+        res.status(500).json({ error: 'Database removal failure.' });
     }
-    res.status(400).json({ error: 'Invalid selection parameters.' });
 });
 
 // ========================================================
@@ -198,5 +225,4 @@ app.get('/admin-login', (req, res) => res.sendFile(path.join(__dirname, 'public/
 app.get('/admin-dashboard', requireAdmin, (req, res) => res.sendFile(path.join(__dirname, 'public/admin-dashboard.html')));
 app.get(/.*$/, (req, res) => res.sendFile(path.join(__dirname, 'public/webpage.html')));
 
-// MODIFIED FOR CLOUD DEPLOYMENT: Listens dynamically to assigned variable allocations
-app.listen(PORT, () => console.log(`\n==================================================\n[SUCCESS] Node Server Engine initialized flawlessly.\n[PERSISTENCE] JSON Local Database Active.\n[PORT] Running on system distribution track: ${PORT}\n==================================================`));
+app.listen(PORT, () => console.log(`\n==================================================\n[SUCCESS] Node Server Engine initialized flawlessly.\n[PERSISTENCE] Cloud MongoDB Atlas Active.\n[PORT] Running on system distribution track: ${PORT}\n==================================================`));
