@@ -5,6 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | AECONIC Design and Build</title>
     <link rel="stylesheet" href="webdesign.css">
+    <style>
+        /* Welcome Layout Flexbox Alignment Structure */
+        .welcome-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .welcome-text {
+            flex: 1;
+        }
+
+        .welcome-text h1 {
+            text-align: left !important;
+            margin-bottom: 15px !important;
+        }
+
+        .welcome-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #44403c;
+        }
+
+        /* Modern CTA Button Link Properties */
+        .learn-more-btn {
+            display: inline-block;
+            white-space: nowrap;
+            background-color: #292524;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            border: 2px solid #292524;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover Inversion Effect */
+        .learn-more-btn:hover {
+            background-color: transparent;
+            color: #292524;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive Adjustments for Mobile Views */
+        @media screen and (max-width: 768px) {
+            .welcome-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+            .welcome-text h1 {
+                text-align: center !important;
+            }
+            .learn-more-btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -104,13 +169,20 @@
         <div class="hero-overlay-content"></div>
     </div>
     
-    <main class="content-container">
-        <h1>
-            Welcome to Our Website
-        </h1>
-        <p>
-            This is a clean, minimal landing page foundation. Visitors can browse through our latest projects, news updates, and upcoming events seamlessly without needing to create an account.
-        </p>
+    <main class="content-container" style="max-width: 950px;">
+        <div class="welcome-row">
+            <div class="welcome-text">
+                <h1>
+                    Welcome to Our Website
+                </h1>
+                <p>
+                    This is a clean, minimal landing page foundation. Visitors can browse through our latest projects, news updates, and upcoming events seamlessly without needing to create an account.
+                </p>
+            </div>
+            <a href="about-story.html" class="learn-more-btn">
+                Learn More About Us
+            </a>
+        </div>
     </main>
     
     <script src="search.js"></script>
