@@ -3,10 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard Workspace</title>
+    <title>Admin Dashboard Workspace | AECONIC Design and Build</title>
+    
+    <link rel="icon" type="image/jpeg" href="AECONIC-LOGO.jpg">
+    
     <link rel="stylesheet" href="webdesign.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <style>
+        /* Isolated Admin Header Bar styling to avoid core template style collisions */
+        .admin-navbar {
+            background-color: #292524;                 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px; 
+            border-bottom: 1px solid #1c1917;
+            width: 100%;
+            min-height: 68px;
+            box-sizing: border-box;
+        }
+
+        .admin-company-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-logout-btn {
+            background-color: #ffffff;
+            color: #292524 !important;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .admin-logout-btn:hover {
+            background-color: #292524;
+            color: #ffffff !important;
+            outline: 1px solid #ffffff;
+        }
+
         /* Sub-Navbar Configuration Layout */
         .sub-navbar {
             background-color: #f3f4f6;
@@ -192,10 +232,10 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="company-logo">Webpage Management Center</div>
-        <a href="/admin-logout" class="nav-item inquiry-btn">Log Out</a>
-    </nav>
+    <header class="admin-navbar">
+        <div class="admin-company-logo">Webpage Management Center</div>
+        <a href="/admin-logout" class="admin-logout-btn">Log Out</a>
+    </header>
 
     <div class="sub-navbar">
         <div class="nav-tabs">

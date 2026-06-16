@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Portal Control</title>
+    
+    <link rel="icon" type="image/jpeg" href="AECONIC-LOGO.jpg">
+    
     <link rel="stylesheet" href="webdesign.css">
     <style>
+        /* Forces the login layout frame to sit naturally without global CSS header overlaps */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #e5e5e5;
+            padding: 20px;
+        }
+
         .login-box {
             max-width: 400px;
-            margin: 120px auto;
+            width: 100%;
             background: #ffffff;
             padding: 40px;
             border-radius: 8px;
             border: 1px solid #d1d5db;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-sizing: border-box;
         }
         .form-group {
             margin-bottom: 20px;
@@ -31,6 +45,7 @@
             border: 1px solid #d1d5db;
             border-radius: 4px;
             font-family: inherit;
+            box-sizing: border-box;
         }
         .submit-btn {
             width: 100%;
@@ -41,13 +56,15 @@
             border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
         }
         .submit-btn:hover { background-color: #1f2937; }
     </style>
 </head>
 <body>
     <div class="login-box">
-        <h2 style="margin-bottom: 25px; text-align: center; color: #111827;">Webpage Management Login</h2>
+        <h2 style="margin-bottom: 25px; text-align: center; color: #111827; font-size: 24px;">Webpage Management Login</h2>
         <form id="loginForm">
             <div class="form-group">
                 <label>Username</label>
