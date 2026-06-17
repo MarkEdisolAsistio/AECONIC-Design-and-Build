@@ -551,7 +551,8 @@ body {
    MOBILE TABS & UTILITY RE-INDEX TRIGGERS
    ======================================================== */
 
-.menu-toggle-checkbox {
+.menu-toggle-checkbox,
+.sub-toggle-checkbox {
     display: none;
 }
 
@@ -588,9 +589,9 @@ body {
 
     /* MOBILE HERO BACKGROUND POSITION REPAIR HOOK */
     .hero-parallax-bg {
-        height: 60vh; /* Prevents extreme image zooming on thin aspect ratios */
+        height: 60vh; 
         margin-top: 68px;
-        background-attachment: scroll !important; /* Disables glitchy mobile window parallax blocks */
+        background-attachment: scroll !important; 
         background-position: center center;
         background-size: cover; 
     }
@@ -639,27 +640,67 @@ body {
         gap: 20px;
     }
 
+    .dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
     .nav-item {
         font-size: 18px;
         width: 100%;
         justify-content: center;
+        cursor: pointer;
     }
 
+    /* REFACTORED MOBILE ACCORDION: Height collapsed and overflow clipped by default */
     .dropdown-menu {
         position: static;
         transform: none !important;
         width: 100%;
         box-shadow: none;
         background-color: rgba(0, 0, 0, 0.2);
-        margin-top: 8px;
-        opacity: 1;
-        pointer-events: auto;
-        display: none;
+        margin-top: 0;
+        opacity: 0;
+        max-height: 0;
+        padding: 0 !important;
+        overflow: hidden;
+        display: block; 
+        pointer-events: none;
+        
+        transition: max-height 0.35s ease-in-out, opacity 0.25s ease, margin-top 0.3s ease;
     }
 
-    .dropdown:hover .dropdown-menu,
-    .dropdown:focus-within .dropdown-menu {
-        display: block;
+    /* Rotates mobile dropdown arrows smoothly when checked */
+    .sub-toggle-checkbox:checked ~ .dropdown-toggle .arrow-icon {
+        transform: rotate(-135deg);
+        border-color: #ffffff;
+    }
+
+    /* TRIGGER PATH: Smoothly transitions open the accordion container height */
+    .sub-toggle-checkbox:checked ~ .dropdown-menu {
+        max-height: 500px; 
+        opacity: 1;
+        margin-top: 8px;
+        padding: 10px !important;
+        pointer-events: auto;
+    }
+
+    /* Disables desktop hover-based overrides from keeping the block permanently stuck */
+    .dropdown:hover .dropdown-menu {
+        max-height: 0;
+        opacity: 0;
+        margin-top: 0;
+        padding: 0 !important;
+        pointer-events: none;
+    }
+    
+    .sub-toggle-checkbox:checked ~ .dropdown:hover .dropdown-menu,
+    .sub-toggle-checkbox:checked ~ .dropdown-menu {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: 8px;
+        padding: 10px !important;
+        pointer-events: auto;
     }
 
     .nav-links-right {
@@ -711,7 +752,6 @@ body {
 
     .project-preview-menu {
         width: 100% !important;
-        padding: 10px !important;
     }
 
     .dropdown-items-container {
