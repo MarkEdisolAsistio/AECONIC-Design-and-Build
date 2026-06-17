@@ -6,10 +6,12 @@
     <title>Home | AECONIC Design and Build</title>
     
     <link rel="icon" type="image/jpeg" href="AECONIC-LOGO.jpg">
-    
     <link rel="stylesheet" href="webdesign.css">
+    
     <style>
-        /* Welcome Layout Flexbox Alignment Structure */
+        /* ========================================================
+            WELCOME SECTION ALIGNMENT & TYPOGRAPHY
+           ======================================================== */
         .welcome-row {
             display: flex;
             align-items: flex-start;
@@ -19,7 +21,6 @@
             margin-top: 40px;
         }
 
-        /* Left Side Column: Accents & Headings */
         .welcome-heading-col {
             flex: 1.1;
             display: flex;
@@ -32,7 +33,7 @@
             font-weight: bold;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #78716c; /* Elegant warm gray */
+            color: #78716c; 
             margin-bottom: 12px;
         }
 
@@ -45,7 +46,6 @@
             margin-bottom: 30px !important;
         }
 
-        /* Right Side Column: Narrative Content */
         .welcome-text-col {
             flex: 1.3;
         }
@@ -54,15 +54,14 @@
             font-size: 16px;
             line-height: 1.75;
             color: #44403c;
-            text-align: justify; /* Forces text paragraphs to justify evenly */
+            text-align: justify; 
             margin-bottom: 20px;
         }
 
         .welcome-text-col p:last-child {
-            margin-bottom: 0; /* Cleans bottom margin layout tracking on final block */
+            margin-bottom: 0; 
         }
 
-        /* Modern CTA Button Link Properties */
         .learn-more-btn {
             display: inline-block;
             white-space: nowrap;
@@ -78,7 +77,6 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* Hover Inversion Effect */
         .learn-more-btn:hover {
             background-color: transparent;
             color: #292524;
@@ -87,24 +85,23 @@
         }
 
         /* ========================================================
-           MODERN 2-1-2 GALLERY GRID ARCHITECTURE
+            MODERN 2-1-2 MASONRY SHOWCASE GALLERY
            ======================================================== */
         .showcase-gallery-grid {
             display: grid;
-            grid-template-columns: 1fr 1.3fr 1fr; /* Center hero track is slightly wider */
+            grid-template-columns: 1fr 1.3fr 1fr; 
             gap: 24px;
             width: 100%;
             margin-top: 60px;
             box-sizing: border-box;
         }
 
-        /* Common structural bounding behaviors for all image cards */
         .gallery-card {
             width: 100%;
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-            background-color: #e7e5e4; /* Warm stone placeholder color background */
+            background-color: #e7e5e4; 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -124,12 +121,10 @@
             transform: scale(1.03);
         }
 
-        /* Center column full height configuration */
         .card-center-hero {
             height: 520px;
         }
 
-        /* Vertically stacked columns for left and right tracks */
         .gallery-split-col {
             display: flex;
             flex-direction: column;
@@ -137,7 +132,6 @@
             height: 520px;
         }
 
-        /* Balanced flex distribution ratios inside the stacked side columns */
         .card-split-top {
             flex: 1.05; 
         }
@@ -147,7 +141,7 @@
         }
 
         /* ========================================================
-           CINEMATIC FULL-WIDTH PROMOTIONAL VIDEO BLOCK
+            CINEMATIC FULL-WIDTH HERO VIDEO CAROUSEL ALTERNATIVE
            ======================================================== */
         .promo-video-section {
             width: 100vw;
@@ -166,7 +160,7 @@
             width: 100%;
             height: auto;
             position: relative;
-            padding-top: 42%; /* Precise 21:9 ultra-wide edge-to-edge aspect ratio constraint */
+            padding-top: 42%; 
             background-color: #292524; 
         }
 
@@ -182,7 +176,7 @@
         }
 
         /* ========================================================
-           HOMEPAGE DYNAMIC PROJECTS PREVIEW TRACK
+            PROJECTS COMPONENT GRID PRESENTATION MODULE
            ======================================================== */
         .home-projects-section {
             margin-top: 90px;
@@ -205,7 +199,6 @@
             display: block;
         }
 
-        /* Styled highlight sipi text block */
         .home-projects-header .project-highlight-quote {
             font-size: 38px;
             font-weight: 800;
@@ -214,7 +207,6 @@
             margin: 0;
         }
 
-        /* 3-Column layout container utilizing identical design tokens from webdesign.css */
         .home-projects-dynamic-box {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -222,7 +214,6 @@
             width: 100%;
         }
 
-        /* Fix dimensions inside homepage grid block since it provides wider spacing than navigation headers */
         .home-projects-dynamic-box .preview-item {
             display: flex !important;
             flex-direction: column !important;
@@ -234,11 +225,10 @@
 
         .home-projects-dynamic-box .preview-thumbnail {
             width: 100% !important;
-            height: 200px !important; /* Made larger than dropdown preview window box dimensions */
+            height: 200px !important; 
             margin-bottom: 12px;
         }
 
-        /* Right-aligned footer tract button placement */
         .home-projects-footer {
             display: flex;
             justify-content: flex-end;
@@ -266,13 +256,13 @@
         }
 
         /* ========================================================
-           NEW "WHAT'S NEW" GRID LINE SECTION (Based on image_89e239.png)
+            "WHAT'S NEW" GRID TIMELINE HEADER ROW
            ======================================================== */
         .whats-new-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #e7e5e4; /* Soft layout accent border line */
+            border-top: 2px solid #292524; 
             padding-top: 45px;
             margin-top: 90px;
             width: 100%;
@@ -287,7 +277,7 @@
         .whats-new-content h2 {
             font-size: 38px;
             font-weight: 800;
-            color: #1c1917; /* Slate core title tone match */
+            color: #1c1917; 
             margin: 0 0 12px 0;
             letter-spacing: -0.5px;
         }
@@ -324,7 +314,266 @@
             transform: translateY(-2px);
         }
 
-        /* Responsive Adjustments for Mobile Views */
+        /* ========================================================
+            BRAND CONTEXT PREMIUM CORPORATE FOOTER STYLES
+           ======================================================== */
+        .main-footer {
+            background-color: #1c1917; 
+            color: #e7e5e4;
+            padding: 80px 0 0 0;
+            margin-top: 120px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-top-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+            display: grid;
+            grid-template-columns: 1.3fr 0.8fr 0.8fr 1.3fr;
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 25px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .footer-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .f-brand-bold {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .f-brand-light {
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: #a8a29e;
+        }
+
+        .footer-brand-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a8a29e;
+            margin: 0 0 25px 0;
+        }
+
+        .footer-newsletter {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 280px;
+        }
+
+        .newsletter-input {
+            background-color: #292524;
+            border: 1px solid #44403c;
+            border-radius: 4px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .newsletter-input:focus {
+            border-color: #78716c;
+        }
+
+        .newsletter-submit-btn {
+            background-color: #292524;
+            border: 2px solid #44403c;
+            color: #ffffff;
+            padding: 11px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .newsletter-submit-btn:hover {
+            background-color: #ffffff;
+            color: #1c1917;
+            border-color: #ffffff;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #a8a29e;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffffff;
+        }
+
+        .contact-data-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #a8a29e;
+            margin-bottom: 16px !important;
+        }
+
+        .contact-data-list li .icon {
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .contact-data-list li a {
+            color: #a8a29e;
+            text-decoration: none;
+            font-size: 13.5px;
+        }
+
+        .contact-data-list li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-social-wrapper h4 {
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin: 25px 0 12px 0;
+        }
+
+        .social-icons-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Enhanced Social Button Architecture to handle SVGs correctly */
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background-color: #292524;
+            border: 1px solid #44403c;
+            border-radius: 4px;
+            color: #a8a29e;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 9px;
+            box-sizing: border-box;
+        }
+
+        .social-btn svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Smooth Interactive Brand Transitions */
+        .social-btn:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn.facebook:hover {
+            background-color: #1877f2;
+            border-color: #1877f2;
+        }
+
+        .social-btn.instagram:hover {
+            background-color: #e1306c;
+            border-color: #e1306c;
+        }
+
+        .social-btn.tiktok:hover {
+            background-color: #000000;
+            border-color: #44403c;
+        }
+
+        .social-btn.youtube:hover {
+            background-color: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .footer-bottom-bar {
+            border-top: 1px solid #292524;
+            padding: 30px 0;
+            background-color: #141210;
+        }
+
+        .footer-bottom-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #78716c;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .legal-links a {
+            color: #78716c;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .legal-links a:hover {
+            color: #a8a29e;
+        }
+
+        /* ========================================================
+            RESPONSIVE DESKTOP-TO-MOBILE OVERRIDES
+           ======================================================== */
+        @media screen and (max-width: 992px) {
+            .footer-top-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 50px 30px;
+            }
+        }
+
         @media screen and (max-width: 768px) {
             .welcome-row {
                 flex-direction: column;
@@ -375,7 +624,6 @@
                 padding-top: 56.25%; 
             }
 
-            /* Responsive overrides for the projects grid block */
             .home-projects-section {
                 margin-top: 60px;
             }
@@ -394,7 +642,6 @@
                 text-align: center;
             }
 
-            /* Responsive adjustments for What's New section */
             .whats-new-section {
                 flex-direction: column;
                 align-items: flex-start;
@@ -417,9 +664,28 @@
                 box-sizing: border-box;
             }
         }
+
+        @media screen and (max-width: 576px) {
+            .main-footer {
+                padding: 60px 0 0 0;
+            }
+            .footer-top-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .footer-bottom-inner {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .legal-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
+
     <nav class="navbar">
         <div class="company-logo">
             <a href="webpage.html" class="logo-link">
@@ -516,6 +782,7 @@
     </div>
     
     <main class="content-container" style="max-width: 1100px; margin: 80px auto;">
+        
         <div class="welcome-row">
             <div class="welcome-heading-col">
                 <span class="eyebrow-title">Introduction to AECONIC Design and Build</span>
@@ -534,29 +801,27 @@
         </div>
 
         <div class="showcase-gallery-grid">
-            
             <div class="gallery-split-col">
                 <div class="gallery-card card-split-top">
-                    <img src="" alt="AECONIC Project Site Analysis">
+                    <img src="project-site.jpg" alt="AECONIC Project Site Analysis">
                 </div>
                 <div class="gallery-card card-split-bottom">
-                    <img src="" alt="AECONIC Technical Drafting Integration">
+                    <img src="technical-drafting.jpg" alt="AECONIC Technical Drafting Integration">
                 </div>
             </div>
 
             <div class="gallery-card card-center-hero">
-                <img src="" alt="AECONIC Modern Architectural Engineering">
+                <img src="architectural-engineering.jpg" alt="AECONIC Modern Architectural Engineering">
             </div>
 
             <div class="gallery-split-col">
                 <div class="gallery-card card-split-top">
-                    <img src="" alt="Bespoke Interior Space Workspace Execution">
+                    <img src="interior-workspace.jpg" alt="Bespoke Interior Space Workspace Execution">
                 </div>
                 <div class="gallery-card card-split-bottom">
-                    <img src="" alt="Master-Planned Structural Foundations">
+                    <img src="structural-foundations.jpg" alt="Master-Planned Structural Foundations">
                 </div>
             </div>
-
         </div>
 
         <div class="promo-video-section">
@@ -568,9 +833,6 @@
             </div>
         </div>
 
-        <!-- ========================================================
-             HOMEPAGE DYNAMIC PROJECTS PREVIEW TRACK
-             ======================================================== -->
         <div class="home-projects-section">
             <div class="home-projects-header">
                 <h2>OUR PROJECTS</h2>
@@ -579,7 +841,6 @@
             </div>
 
             <div class="home-projects-dynamic-box">
-                <!-- Loaded dynamically by content-loader.js -->
             </div>
             
             <div class="home-projects-footer">
@@ -587,9 +848,6 @@
             </div>
         </div>
 
-        <!-- ========================================================
-             NEW "WHAT'S NEW" GRID LINE SECTION (Based on image_89e239.png)
-             ======================================================== -->
         <div class="whats-new-section">
             <div class="whats-new-content">
                 <h2>What's New</h2>
@@ -602,6 +860,115 @@
 
     </main>
     
+    <footer class="main-footer">
+        <div class="footer-top-container">
+            
+            <div class="footer-col brand-summary-col">
+                <div class="footer-logo">
+                    <img src="AECONIC-LOGO.jpg" alt="AECONIC Design and Build Logo">
+                    <div class="footer-logo-text">
+                        <span class="f-brand-bold">AECONIC</span>
+                        <span class="f-brand-light">Design and Build</span>
+                    </div>
+                </div>
+                <p class="footer-brand-desc">
+                    Building masterpieces with heart, integrity, and innovation. We orchestrate resilient, sustainable, and premium built environments.
+                </p>
+                <div class="footer-newsletter">
+                    <input type="email" class="newsletter-input" placeholder="Your Email">
+                    <button type="button" class="newsletter-submit-btn">Subscribe</button>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="webpage.html">Home</a></li>
+                    <li><a href="about-story.html">Our Story</a></li>
+                    <li><a href="about-values.html">Our Core Values</a></li>
+                    <li><a href="about-awards.html">Awards & Certifications</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <h3>Our Pillars</h3>
+                <ul>
+                    <li><a href="projects.html">Architectural</a></li>
+                    <li><a href="projects.html">Engineering</a></li>
+                    <li><a href="projects.html">Construction</a></li>
+                    <li><a href="projects.html">Interior Design</a></li>
+                    <li><a href="projects.html">Consultancy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-info-col">
+                <h3>Contact Us</h3>
+                <ul class="contact-data-list">
+                    <li class="address-item">
+                        <span class="icon">📍</span>
+                        <span class="text">Ground Flr., Siwa Apt., Purok 5, Samson Subdivision, Sumacab Este, Cabanatuan City, Nueva Ecija, 3100</span>
+                    </li>
+                    <li>
+                        <span class="icon">✉️</span>
+                        <span class="text"><a href="mailto:adesignbuild0829@gmail.com">adesignbuild0829@gmail.com</a></span>
+                    </li>
+                    <li>
+                        <span class="icon">📞</span>
+                        <span class="text">(044) 960 1147</span>
+                    </li>
+                    <li>
+                        <span class="icon">📱</span>
+                        <span class="text">+63 919 995 9629</span>
+                    </li>
+                </ul>
+                
+                <div class="footer-social-wrapper">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons-row">
+                        <a href="https://facebook.com" class="social-btn facebook" target="_blank" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.01 1.63 4.15 1.13 1.22 2.69 1.92 4.32 2.01v3.98c-1.35-.03-2.69-.45-3.81-1.21-.69-.47-1.27-1.1-1.72-1.83v6.61c-.04 2.45-1.12 4.79-2.96 6.36-1.95 1.68-4.57 2.42-7.14 2.03-2.61-.38-4.97-1.99-6.22-4.34-1.32-2.45-1.34-5.46-.05-7.92 1.2-2.31 3.5-3.95 6.09-4.29 1-.14 2.03-.04 2.99.27V9.92c-.78-.26-1.62-.31-2.43-.13-1.37.28-2.58 1.2-3.23 2.44-.69 1.3-.65 2.91.1 4.17.71 1.21 2.05 1.99 3.46 2.02 1.42.04 2.76-.7 3.44-1.94.39-.71.55-1.53.54-2.34V.02z"/>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" class="social-btn youtube" target="_blank" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.503 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.387.508 9.387.508s7.517 0 9.387-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="copyright-text">
+                    Copyright © 2026 AECONIC | All Rights Reserved
+                </div>
+                <div class="legal-links">
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="search.js"></script>
     <script src="content-loader.js"></script>
 </body>

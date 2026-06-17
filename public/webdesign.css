@@ -1,4 +1,6 @@
-/* Reset default browser margins and set a clean font */
+/* ========================================================
+   GLOBAL RESETS, BASE TYPOGRAPHY & VIEWPORT CONTEXTS
+   ======================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,22 +8,18 @@
     font-family: 'Georgia', Times, serif;
 }
 
-/* Enable smooth sliding viewport transitions */
 html {
     scroll-behavior: smooth;
 }
 
-/* Base Body Style */
 body {
     background-color: #e5e5e5;
     color: #292524;
 }
 
 /* ========================================================
-   NAVIGATION BAR STRUCTURAL GRID
+   NAVIGATION BAR STRUCTURAL GRID & BRANDING STYLES
    ======================================================== */
-
-/* Navigation Bar Structure - Deep Charcoal Solid Top Accent Block & Sticky Lock */
 .navbar {
     background-color: #292524;                  
     display: flex;
@@ -29,25 +27,20 @@ body {
     align-items: center;
     padding: 10px 30px; 
     border-bottom: 1px solid #1c1917;          
-    
-    /* Sticky Positioning Attributes */
     position: fixed;                               
     top: 0;
     left: 0;
     width: 100%;
-    
     min-height: 68px;                          
     z-index: 2000;                            
 }
 
-/* Left Side: Container layout for company branding elements */
 .company-logo {
     display: flex;
     align-items: center;
     z-index: 2100;
 }
 
-/* Clickable container link grouping the logo and inline typography */
 .logo-link {
     display: inline-flex;
     text-decoration: none;
@@ -55,7 +48,6 @@ body {
     gap: 12px; 
 }
 
-/* Forces logo image to fit nicely within the navbar track dimensions */
 .nav-logo {
     height: 48px;
     width: auto;
@@ -64,12 +56,10 @@ body {
     transition: transform 0.2s ease;
 }
 
-/* Interactive hover expansion feedback rule */
 .logo-link:hover .nav-logo {
     transform: scale(1.03);
 }
 
-/* Typography structural positioning layout */
 .logo-text {
     display: flex;
     flex-direction: column;
@@ -77,7 +67,6 @@ body {
     line-height: 1.2;
 }
 
-/* Bold Branding Typography Rule */
 .brand-bold {
     font-size: 20px;
     font-weight: 800; 
@@ -85,14 +74,15 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Normal/Light Subtext Typography Rule */
 .brand-light {
     font-size: 13px;
     font-weight: 400; 
     color: #d6d3d1;   
 }
 
-/* DESKTOP STRUCTURING: Acting as a seamless horizontal flex row layout across screens */
+/* ========================================================
+   DESKTOP MENU LINKS CONTAINER & INLINE NAVIGATION LOGIC
+   ======================================================== */
 .nav-menu-wrapper {
     display: flex;
     flex: 1;
@@ -101,7 +91,6 @@ body {
     margin-left: 40px;
 }
 
-/* Center Menu Links Container */
 .nav-links-center {
     display: flex;
     align-items: center;
@@ -109,14 +98,12 @@ body {
     margin: 0 auto;         
 }
 
-/* Right Action Button Container */
 .nav-links-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-/* Individual Menu Items - Grayed out text inside dark Navbar context */
 .nav-item {
     text-decoration: none;
     color: #d6d3d1;
@@ -128,22 +115,18 @@ body {
     gap: 8px;
 }
 
-/* Changes text items to bright white on hover */
 .nav-item:hover {
     color: #ffffff;
 }
 
 /* ========================================================
-   DROPDOWN & ARROW ANIMATION MECHANICS
+   STANDARD DROPDOWN & ARROW ANIMATION MECHANICS
    ======================================================== */
-
-/* Parent anchor for position layering */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Draws a precise geometric chevron/V-shape matching navbar text theme */
 .arrow-icon {
     width: 6px;
     height: 6px;
@@ -155,7 +138,6 @@ body {
     margin-top: -3px;
 }
 
-/* The sub-menu block itself - Deep Charcoal box to contrast with body ground */
 .dropdown-menu {
     display: block;
     position: absolute;
@@ -174,7 +156,6 @@ body {
     z-index: 1000;
 }
 
-/* Dropdown Sub-menu Items Styling */
 .dropdown-menu a {
     color: #d6d3d1;
     padding: 10px 20px;
@@ -185,26 +166,25 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Subtle charcoal highlight item row color on link selection paths */
 .dropdown-menu a:hover {
     background-color: #44403c;
     color: #ffffff;
 }
 
-/* TRIGGER STATE: Activated when hover state starts */
 .dropdown:hover .dropdown-menu {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
 }
 
-/* TRIGGER STATE: Rotates arrow icon and colors white on element hover */
 .dropdown:hover .arrow-icon {
     transform: rotate(-135deg);
     border-color: #ffffff;
 }
 
-/* Distinct styling for the Call-to-Action Inquiry Button - Crisp white item inside dark nav */
+/* ========================================================
+   CALL-TO-ACTION (INQUIRY) BUTTON COMPONENT
+   ======================================================== */
 .inquiry-btn {
     background-color: #ffffff;
     color: #292524 !important;
@@ -213,7 +193,6 @@ body {
     font-weight: bold;
 }
 
-/* Inverts elegantly to deep gray container outline style on mouseover */
 .inquiry-btn:hover {
     background-color: #292524;
     color: #ffffff !important;
@@ -221,153 +200,8 @@ body {
 }
 
 /* ========================================================
-   HOMEPAGE FULL SCREEN HERO PARALLAX MECHANICS
-   ======================================================== */
-
-.hero-parallax-bg {
-    background-image: url('AECONIC-BACKGROUND.jpg');
-    height: 100vh;            
-    margin-top: 68px;         
-    width: 100%;
-    
-    /* Lock background layer fixed on viewport while document body tracks up */
-    background-attachment: fixed;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-    position: relative;
-}
-
-/* Dark gradient mask to maximize overlay contrast bounds */
-.hero-parallax-bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(41, 37, 36, 0.3), rgba(41, 37, 36, 0.1));
-}
-
-.hero-overlay-content {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-}
-
-/* ========================================================
-   MAIN CONTENT ARCHITECTURE LAYOUTS
-   ======================================================== */
-
-/* Main Body Content Formatting Base Container Layout */
-.content-container {
-    max-width: 850px;
-    margin: 60px auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 20; 
-}
-
-.content-container h1 {
-    font-size: 36px;
-    margin-bottom: 40px;
-    color: #1c1917;
-    text-align: center;
-}
-
-/* GLOBAL COMPONENT CARDS WITH BORDERS */
-.project-section, 
-.award-section, 
-.news-section, 
-.blog-section, 
-.event-section, 
-.career-section {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 35px !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-}
-
-/* Dynamic Content Card Internal Section Headings */
-.content-container article h2 {
-    font-size: 26px;
-    color: #1c1917;
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e5e7eb;
-    text-align: left;
-}
-
-/* ========================================================
-   SEARCH BAR & VECTOR SEARCH ICON MECHANICS
-   ======================================================== */
-
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.search-input {
-    padding: 6px 35px 6px 12px; 
-    font-size: 14px;
-    border: 1px solid #44403c;
-    border-radius: 20px; 
-    outline: none;
-    width: 180px; 
-    font-family: inherit;
-    transition: all 0.3s ease;
-    background-color: #1c1917;
-    color: #ffffff;
-}
-
-.search-input:focus {
-    border-color: #ffffff;
-    width: 220px; 
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-}
-
-.search-icon {
-    position: absolute;
-    right: 12px; 
-    width: 8px;
-    height: 8px;
-    border: 2px solid #d6d3d1; 
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.search-icon::after {
-    content: "";
-    position: absolute;
-    top: 7px;
-    left: 7px;
-    width: 2px;
-    height: 6px;
-    background-color: #d6d3d1; 
-    transform: rotate(-45deg); 
-    display: block;
-}
-
-.search-input:focus + .search-icon,
-.search-input:focus + .search-icon::after {
-    border-color: #ffffff;
-    background-color: #ffffff; 
-}
-.search-input:focus + .search-icon {
-    background-color: transparent; 
-}
-
-/* ========================================================
    HORIZONTAL NAV MEGA-DROPDOWN MENU EXTENSIONS
    ======================================================== */
-
 .project-preview-menu {
     display: flex !important;
     flex-direction: column;
@@ -473,9 +307,69 @@ body {
 }
 
 /* ========================================================
+   SEARCH BAR ENGINE & DYNAMIC EXPANSION RULES
+   ======================================================== */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 6px 35px 6px 12px; 
+    font-size: 14px;
+    border: 1px solid #44403c;
+    border-radius: 20px; 
+    outline: none;
+    width: 180px; 
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: #1c1917;
+    color: #ffffff;
+}
+
+.search-input:focus {
+    border-color: #ffffff;
+    width: 220px; 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px; 
+    width: 8px;
+    height: 8px;
+    border: 2px solid #d6d3d1; 
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.search-icon::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 2px;
+    height: 6px;
+    background-color: #d6d3d1; 
+    transform: rotate(-45deg); 
+    display: block;
+}
+
+.search-input:focus + .search-icon,
+.search-input:focus + .search-icon::after {
+    border-color: #ffffff;
+    background-color: #ffffff; 
+}
+
+.search-input:focus + .search-icon {
+    background-color: transparent; 
+}
+
+/* ========================================================
    LIVE SEARCH RESULTS DROPDOWN PREVIEW (LIGHT THEME)
    ======================================================== */
-
 .search-preview-box {
     display: none;
     position: absolute;
@@ -530,31 +424,109 @@ body {
 }
 
 /* ========================================================
-   RICH TEXT INLINE CONTAINER IMAGE CONSTRAINTS
+   HOMEPAGE FULL SCREEN HERO PARALLAX MECHANICS
    ======================================================== */
-
-.rich-content-view img {
-    max-width: 100%;    
-    height: auto;       
-    display: block;
-    margin: 15px 0;     
-    border-radius: 6px; 
+.hero-parallax-bg {
+    background-image: url('AECONIC-BACKGROUND.jpg');
+    height: 100vh;            
+    margin-top: 68px;         
+    width: 100%;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
-.rich-content-view video {
-    max-width: 100%;
-    height: auto;
-    border-radius: 6px;
+.hero-parallax-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(41, 37, 36, 0.3), rgba(41, 37, 36, 0.1));
+}
+
+.hero-overlay-content {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 /* ========================================================
-   NEW "WHAT'S NEW" GRID LINE SECTION (Based on image_89e239.png)
+   INNER CONTENT LAYER ARCHITECTURE & CONTENT CARDS
+   ======================================================== */
+.content-container {
+    max-width: 850px;
+    margin: 60px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 20; 
+}
+
+.content-container h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #1c1917;
+    text-align: center;
+}
+
+.project-section, 
+.award-section, 
+.news-section, 
+.blog-section, 
+.event-section, 
+.career-section {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 35px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.content-container article h2 {
+    font-size: 26px;
+    color: #1c1917;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+/* ========================================================
+   PROJECTS PREVIEW HEADER TYPOGRAPHY MODS
+   ======================================================== */
+.home-projects-header .project-highlight-quote {
+    font-size: 38px;
+    font-weight: 800;
+    color: #1c1917;
+    line-height: 1.25;
+    margin: 0;
+    max-width: 800px; 
+    padding-right: 20px; 
+}
+
+.home-projects-header .project-header-description {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #44403c; 
+    margin-top: 16px;
+    margin-bottom: 0;
+    max-width: 800px; 
+}
+
+/* ========================================================
+   "WHAT'S NEW" GRID LINE GRID BANNER LAYOUT BLOCK
    ======================================================== */
 .whats-new-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 2px solid #292524; /* Elegant layout accent top line spacer */
+    border-top: 2px solid #292524; 
     padding-top: 45px;
     margin-top: 90px;
     width: 100%;
@@ -569,7 +541,7 @@ body {
 .whats-new-content h2 {
     font-size: 38px;
     font-weight: 800;
-    color: #1c1917; /* High-contrast core dark slate tone */
+    color: #1c1917; 
     margin: 0 0 12px 0;
     letter-spacing: -0.5px;
 }
@@ -607,34 +579,71 @@ body {
 }
 
 /* ========================================================
-   PROJECTS PREVIEW HEADER TYPOGRAPHY MODS
+   PARALLAX CONTENT LANDING STORY HEADER CONFIGS
    ======================================================== */
-
-/* Styled highlight text block */
-.home-projects-header .project-highlight-quote {
-    font-size: 38px;
-    font-weight: 800;
-    color: #1c1917;
-    line-height: 1.25;
-    margin: 0;
-    max-width: 800px; /* Adds the right indent by matching the description's width */
-    padding-right: 20px; /* Gives it just a little extra breathing room on the right */
+.story-hero-bg {
+    position: relative;
+    width: 100%;
+    height: 380px; 
+    background-image: url('your-hero-image.jpg'); 
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
 }
 
-/* Heartfelt description below the highlight quote */
-.home-projects-header .project-header-description {
-    font-size: 16px;
-    line-height: 1.75;
-    color: #44403c; /* Matches your welcome text warm gray */
-    margin-top: 16px;
-    margin-bottom: 0;
-    max-width: 800px; /* Keeps the text block readable and prevents it from stretching too wide */
+.story-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(28, 25, 23, 0.65); 
+    z-index: 1;
+}
+
+.story-hero-title {
+    position: relative;
+    color: #ffffff !important;
+    font-size: 42px;
+    font-weight: 800;
+    z-index: 2;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin: 0;
 }
 
 /* ========================================================
-   MOBILE TABS & UTILITY RE-INDEX TRIGGERS
+   RICH TEXT INLINE CONTAINER LAYER IMAGE CONSTRAINTS
    ======================================================== */
+.rich-content-view img {
+    max-width: 100%;    
+    height: auto;       
+    display: block;
+    margin: 15px 0;     
+    border-radius: 6px; 
+}
 
+.rich-content-view video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* ========================================================
+   QUILL RICH TEXT INLINE FONT ENGINES
+   ======================================================== */
+.rich-content-view .ql-font-georgia { font-family: 'Georgia', Times, serif; }
+.rich-content-view .ql-font-arial { font-family: 'Arial', Helvetica, sans-serif; }
+.rich-content-view .ql-font-times-new-roman { font-family: 'Times New Roman', Times, serif; }
+.rich-content-view .ql-font-courier-new { font-family: 'Courier New', Courier, monospace; }
+
+/* ========================================================
+   MOBILE ACCORDION MECHANICAL HOOKS & CHECKS
+   ======================================================== */
 .menu-toggle-checkbox,
 .sub-toggle-checkbox {
     display: none;
@@ -658,20 +667,17 @@ body {
 }
 
 /* ========================================================
-   MOBILE & TABLET RESPONSIVE VIEW FRAMEWORK EXTENSIONS
+   MEDIA QUERY VIEWPORT REPAIR MATRICES (768px BREAKPOINT)
    ======================================================== */
-
 @media screen and (max-width: 768px) {
     .navbar {
         padding: 10px 20px;
     }
 
-    /* Unveils the graphical hamburger toggle icon */
     .hamburger-label {
         display: flex;
     }
 
-    /* MOBILE HERO BACKGROUND POSITION REPAIR HOOK */
     .hero-parallax-bg {
         height: 60vh; 
         margin-top: 68px;
@@ -680,7 +686,6 @@ body {
         background-size: cover; 
     }
 
-    /* Transforms transparent desktop row grid layouts into standard mobile drawers */
     .nav-menu-wrapper {
         position: fixed;
         top: 68px;
@@ -696,28 +701,26 @@ body {
         gap: 30px;
         overflow-y: auto;
         margin-left: 0;
-        
         transform: translateX(100%);
         transition: transform 0.3s ease-in-out;
     }
 
-    /* Pulls drawer into view when utility checkbox gets triggered */
     .menu-toggle-checkbox:checked ~ .nav-menu-wrapper {
         transform: translateX(0);
     }
 
-    /* Animates flat lines into a close cross icon on screen selections */
     .menu-toggle-checkbox:checked ~ .hamburger-label span:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
+    
     .menu-toggle-checkbox:checked ~ .hamburger-label span:nth-child(2) {
         opacity: 0;
     }
+    
     .menu-toggle-checkbox:checked ~ .hamburger-label span:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* Vertical stack logic for mobile viewports */
     .nav-links-center {
         flex-direction: column;
         width: 100%;
@@ -736,7 +739,6 @@ body {
         cursor: pointer;
     }
 
-    /* REFACTORED MOBILE ACCORDION: Height collapsed and overflow clipped by default */
     .dropdown-menu {
         position: static;
         transform: none !important;
@@ -750,17 +752,14 @@ body {
         overflow: hidden;
         display: block; 
         pointer-events: none;
-        
         transition: max-height 0.35s ease-in-out, opacity 0.25s ease, margin-top 0.3s ease;
     }
 
-    /* Rotates mobile dropdown arrows smoothly when checked */
     .sub-toggle-checkbox:checked ~ .dropdown-toggle .arrow-icon {
         transform: rotate(-135deg);
         border-color: #ffffff;
     }
 
-    /* TRIGGER PATH: Smoothly transitions open the accordion container height */
     .sub-toggle-checkbox:checked ~ .dropdown-menu {
         max-height: 500px; 
         opacity: 1;
@@ -769,7 +768,6 @@ body {
         pointer-events: auto;
     }
 
-    /* Disables desktop hover-based overrides from keeping the block permanently stuck */
     .dropdown:hover .dropdown-menu {
         max-height: 0;
         opacity: 0;
@@ -813,7 +811,6 @@ body {
         font-size: 16px;
     }
 
-    /* Card & Content adjustments */
     .content-container {
         margin: 40px auto;
         padding: 0 20px;
@@ -862,13 +859,11 @@ body {
         text-align: center;
     }
 
-    /* Projects Mobile Paragraph Alignment Modification Hooks */
     .home-projects-header .project-header-description {
         font-size: 15px;
-        text-align: center; /* Centers text block to match global mobile standards */
+        text-align: center; 
     }
 
-    /* Responsive layout shifts for What's New banner section */
     .whats-new-section {
         flex-direction: column;
         align-items: flex-start;
@@ -876,15 +871,19 @@ body {
         margin-top: 60px;
         padding-top: 35px;
     }
+    
     .whats-new-content {
         max-width: 100%;
     }
+    
     .whats-new-content h2 {
         font-size: 30px;
     }
+    
     .whats-new-action {
         width: 100%;
     }
+    
     .view-articles-btn {
         width: 100%;
         text-align: center;
@@ -893,48 +892,71 @@ body {
 }
 
 /* ========================================================
-   PARALLAX HERO BACKGROUND LAYER CONFIGURATIONS
+   FOOTER SOCIAL FOLLOW ENGINE & SVG ACCENTS
    ======================================================== */
-.story-hero-bg {
-    position: relative;
-    width: 100%;
-    height: 380px; /* Clean header height */
-    background-image: url('your-hero-image.jpg'); /* Replace with your target background asset name */
-    background-attachment: fixed; /* Crucial: Locks image layer trace for parallax animation effect */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.follow-us-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 40px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
 }
 
-/* Elegant dark tint overlay to make white heading entry titles pop */
-.story-hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.follow-us-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.social-icons-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: rgba(255, 255, 255, 0.05); /* Match your preview item panel blend */
+    border: 1px solid #44403c; /* Match your system container border line color */
+    border-radius: 6px;
+    color: #d6d3d1; /* Base item font contrast level */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 10px;
+}
+
+.social-icon-box svg {
     width: 100%;
     height: 100%;
-    background: rgba(28, 25, 23, 0.65); /* Warm dark charcoal tint match */
-    z-index: 1;
+    transition: transform 0.2s ease;
 }
 
-.story-hero-title {
-    position: relative;
-    color: #ffffff !important;
-    font-size: 42px;
-    font-weight: 800;
-    z-index: 2;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    margin: 0;
+/* Hover Dynamics - Turns into official core brand coloring schemes seamlessly */
+.social-icon-box:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* ========================================================
-   QUILL RICH TEXT CONTENT CUSTOM FONT RENDER MATRICES
-   ======================================================== */
-.rich-content-view .ql-font-georgia { font-family: 'Georgia', Times, serif; }
-.rich-content-view .ql-font-arial { font-family: 'Arial', Helvetica, sans-serif; }
-.rich-content-view .ql-font-times-new-roman { font-family: 'Times New Roman', Times, serif; }
-.rich-content-view .ql-font-courier-new { font-family: 'Courier New', Courier, monospace; }
+.social-icon-box.fab:hover {
+    background-color: #1877f2;
+    border-color: #1877f2;
+}
+
+.social-icon-box.ig:hover {
+    background-color: #e1306c;
+    border-color: #e1306c;
+}
+
+.social-icon-box.tt:hover {
+    background-color: #000000;
+    border-color: #44403c;
+}
+
+.social-icon-box.yt:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
