@@ -22,6 +22,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Capture the primary layout mounting box area injected across your public pages
     const mainContainer = document.querySelector(".content-container");
 
+    // ========================================================
+    // 0. DYNAMIC HOMEPAGE MOUNT ROUTE VALIDATOR (index.html / webpage.html / root)
+    // ========================================================
+    const homeDynamicBox = document.querySelector(".home-projects-dynamic-box");
+    if (homeDynamicBox && data.projects) {
+        homeDynamicBox.innerHTML = ""; 
+
+        // Take the top 3 latest database array entries exactly like the navbar dropdown layout matrix
+        const topThreeHomeProjects = [...data.projects].reverse().slice(0, 3);
+
+        topThreeHomeProjects.forEach(project => {
+            const projectCardLink = document.createElement("a");
+            projectCardLink.href = `projects.html#project${project.id}`;
+            projectCardLink.className = "preview-item";
+            
+            let cleanString = project.desc.replace(/<\/?[^>]+(>|$)/g, "");
+            const imgTagMatch = project.desc.match(/<img[^>]+src="([^">]+)"/);
+            let thumbnailStyle = '';
+            
+            if (imgTagMatch && imgTagMatch[1]) {
+                thumbnailStyle = `background-image: url('${imgTagMatch[1]}'); background-size: cover; background-position: center;`;
+            } else {
+                thumbnailStyle = `background-color: #1c1917;`; // Flat dark fallback block if no asset image exists
+            }
+
+            projectCardLink.innerHTML = `
+                <div class="preview-thumbnail" style="${thumbnailStyle}"></div>
+                <div class="preview-text">
+                    <span class="preview-title" style="font-weight: bold; color: #1c1917; font-size: 16px; margin-top: 4px; display: block;">${project.title}</span>
+                    <span class="preview-desc" style="color: #57534e; font-size: 13px; margin-top: 4px; display: block; line-height: 1.4;">${cleanString.substring(0, 75)}...</span>
+                </div>
+            `;
+            homeDynamicBox.appendChild(projectCardLink);
+        });
+    }
+
     if (mainContainer) {
         const currentPath = window.location.pathname;
 
@@ -67,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             [...data.story].reverse().forEach(storyItem => {
                 const article = document.createElement("article");
                 article.id = `story${storyItem.id}`;
-                article.className = "project-section"; // Inherits your clean white layout box styles
+                article.className = "project-section"; 
 
                 article.innerHTML = `
                     <h2>${storyItem.title}</h2>
@@ -90,7 +126,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             [...data.values].reverse().forEach(valueItem => {
                 const article = document.createElement("article");
                 article.id = `value${valueItem.id}`;
-                article.className = "project-section"; // Inherits your clean white layout box styles
+                article.className = "project-section"; 
 
                 article.innerHTML = `
                     <h2>${valueItem.title}</h2>

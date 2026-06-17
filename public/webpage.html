@@ -86,6 +86,185 @@
             box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
         }
 
+        /* ========================================================
+           MODERN 2-1-2 GALLERY GRID ARCHITECTURE
+           ======================================================== */
+        .showcase-gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr 1fr; /* Center hero track is slightly wider */
+            gap: 24px;
+            width: 100%;
+            margin-top: 60px;
+            box-sizing: border-box;
+        }
+
+        /* Common structural bounding behaviors for all image cards */
+        .gallery-card {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            background-color: #e7e5e4; /* Warm stone placeholder color background */
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Center column full height configuration */
+        .card-center-hero {
+            height: 520px;
+        }
+
+        /* Vertically stacked columns for left and right tracks */
+        .gallery-split-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: 520px;
+        }
+
+        /* Balanced flex distribution ratios inside the stacked side columns */
+        .card-split-top {
+            flex: 1.05; 
+        }
+
+        .card-split-bottom {
+            flex: 0.95;
+        }
+
+        /* ========================================================
+           CINEMATIC FULL-WIDTH PROMOTIONAL VIDEO BLOCK
+           ======================================================== */
+        .promo-video-section {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            margin-top: 80px; 
+            background-color: #1c1917; 
+            overflow: hidden;
+            line-height: 0; 
+        }
+
+        .promo-video-container {
+            width: 100%;
+            height: auto;
+            position: relative;
+            padding-top: 42%; /* Precise 21:9 ultra-wide edge-to-edge aspect ratio constraint */
+            background-color: #292524; 
+        }
+
+        .promo-video-container video,
+        .promo-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        /* ========================================================
+           HOMEPAGE DYNAMIC PROJECTS PREVIEW TRACK
+           ======================================================== */
+        .home-projects-section {
+            margin-top: 90px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .home-projects-header {
+            text-align: left;
+            margin-bottom: 45px;
+        }
+
+        .home-projects-header h2 {
+            font-size: 14px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            color: #78716c;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Styled highlight sipi text block */
+        .home-projects-header .project-highlight-quote {
+            font-size: 38px;
+            font-weight: 800;
+            color: #1c1917;
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        /* 3-Column layout container utilizing identical design tokens from webdesign.css */
+        .home-projects-dynamic-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            width: 100%;
+        }
+
+        /* Fix dimensions inside homepage grid block since it provides wider spacing than navigation headers */
+        .home-projects-dynamic-box .preview-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            width: 100%;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .home-projects-dynamic-box .preview-thumbnail {
+            width: 100% !important;
+            height: 200px !important; /* Made larger than dropdown preview window box dimensions */
+            margin-bottom: 12px;
+        }
+
+        /* Right-aligned footer tract button placement */
+        .home-projects-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 35px;
+            width: 100%;
+        }
+
+        .see-more-action-btn {
+            background-color: #292524;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 4px;
+            border: 2px solid #292524;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.25s ease;
+        }
+
+        .see-more-action-btn:hover {
+            background-color: transparent;
+            color: #292524;
+            transform: translateX(3px);
+        }
+
         /* Responsive Adjustments for Mobile Views */
         @media screen and (max-width: 768px) {
             .welcome-row {
@@ -104,55 +283,59 @@
                 font-size: 30px;
             }
             .welcome-text-col p {
-                text-align: center; /* Drops back to centered text context paths on mobile screens */
+                text-align: center;
             }
             .learn-more-btn {
                 width: 100%;
                 text-align: center;
             }
+
+            .showcase-gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 40px;
+            }
+            .card-center-hero, .gallery-split-col {
+                height: auto;
+            }
+            .gallery-split-col {
+                gap: 16px;
+            }
+            .card-split-top, .card-split-bottom {
+                height: 260px;
+                flex: none;
+            }
+            .card-center-hero {
+                height: 320px;
+            }
+
+            .promo-video-section {
+                margin-top: 50px;
+            }
+            .promo-video-container {
+                padding-top: 56.25%; 
+            }
+
+            /* Responsive overrides for the projects grid block */
+            .home-projects-section {
+                margin-top: 60px;
+            }
+            .home-projects-header .project-highlight-quote {
+                font-size: 30px;
+            }
+            .home-projects-dynamic-box {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .home-projects-footer {
+                justify-content: center;
+            }
+            .see-more-action-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "AECONIC Design and Build",
-      "url": "https://aeconic-design-and-build.onrender.com/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://aeconic-design-and-build.onrender.com/projects.html?search={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "hasPart": [
-        {
-          "@type": "WebPage",
-          "name": "About Us",
-          "url": "https://aeconic-design-and-build.onrender.com/about-story.html"
-        },
-        {
-          "@type": "WebPage",
-          "name": "Our Projects",
-          "url": "https://aeconic-design-and-build.onrender.com/projects.html"
-        },
-        {
-          "@type": "WebPage",
-          "name": "What's New",
-          "url": "https://aeconic-design-and-build.onrender.com/news-updates.html"
-        },
-        {
-          "@type": "WebPage",
-          "name": "Careers",
-          "url": "https://aeconic-design-and-build.onrender.com/careers.html"
-        },
-        {
-          "@type": "WebPage",
-          "name": "Contact Us",
-          "url": "https://aeconic-design-and-build.onrender.com/contact.html"
-        }
-      ]
-    }
-    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -265,6 +448,55 @@
                 <p>
                     In every blueprint drawn and foundation poured, AECONIC weaves innovation, purpose, and structural permanence into the fabric of the community—nurturing enterprise, elevating daily living, and unlocking the full potential of master-planned built solutions today and for generations to come.
                 </p>
+            </div>
+        </div>
+
+        <div class="showcase-gallery-grid">
+            
+            <div class="gallery-split-col">
+                <div class="gallery-card card-split-top">
+                    <img src="" alt="AECONIC Project Site Analysis">
+                </div>
+                <div class="gallery-card card-split-bottom">
+                    <img src="" alt="AECONIC Technical Drafting Integration">
+                </div>
+            </div>
+
+            <div class="gallery-card card-center-hero">
+                <img src="" alt="AECONIC Modern Architectural Engineering">
+            </div>
+
+            <div class="gallery-split-col">
+                <div class="gallery-card card-split-top">
+                    <img src="" alt="Bespoke Interior Space Workspace Execution">
+                </div>
+                <div class="gallery-card card-split-bottom">
+                    <img src="" alt="Master-Planned Structural Foundations">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="promo-video-section">
+            <div class="promo-video-container">
+                <video controls autoplay loop muted playsinline>
+                    <source src="YOUR-PROMO-VIDEO.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <div class="home-projects-section">
+            <div class="home-projects-header">
+                <h2>OUR PROJECTS</h2>
+                <p class="project-highlight-quote">Your hard work is the foundation of a strong future.</p>
+            </div>
+
+            <div class="home-projects-dynamic-box">
+                </div>
+
+            <div class="home-projects-footer">
+                <a href="projects.html" class="see-more-action-btn">See More</a>
             </div>
         </div>
     </main>
