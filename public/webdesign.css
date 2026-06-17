@@ -25,29 +25,26 @@ body {
 .navbar {
     background-color: #292524;                 
     display: flex;
-    justify-content: center;                  /* Centers the middle menu links flawlessly */
+    justify-content: space-between; 
     align-items: center;
     padding: 10px 30px; 
     border-bottom: 1px solid #1c1917;         
     
     /* Sticky Positioning Attributes */
-    position: fixed;                          /* Completely pins navbar while scrolling */
+    position: fixed;                          
     top: 0;
     left: 0;
     width: 100%;
     
-    min-height: 68px;                         /* Keeps navbar vertical height consistent */
-    z-index: 2000;                            /* Keeps navigation bar over fixed scrolling layers */
+    min-height: 68px;                         
+    z-index: 2000;                            
 }
 
 /* Left Side: Container layout for company branding elements */
 .company-logo {
-    position: absolute;
-    left: 30px;                             /* Snaps logo group to the absolute left margin padding line */
-    top: 50%;
-    transform: translateY(-50%); /* Keeps branding image elements vertically aligned */
     display: flex;
     align-items: center;
+    z-index: 2100;
 }
 
 /* Clickable container link grouping the logo and inline typography */
@@ -55,7 +52,7 @@ body {
     display: inline-flex;
     text-decoration: none;
     align-items: center;
-    gap: 12px; /* Creates clean breathing room between image and textual branding */
+    gap: 12px; 
 }
 
 /* Forces logo image to fit nicely within the navbar track dimensions */
@@ -83,7 +80,7 @@ body {
 /* Bold Branding Typography Rule */
 .brand-bold {
     font-size: 20px;
-    font-weight: 800; /* Extra prominent bolding weight allocation */
+    font-weight: 800; 
     color: #ffffff;
     letter-spacing: 0.5px;
 }
@@ -91,8 +88,17 @@ body {
 /* Normal/Light Subtext Typography Rule */
 .brand-light {
     font-size: 13px;
-    font-weight: 400; /* Clean standard book weight */
-    color: #d6d3d1;   /* Soft warm-gray tint for premium architectural contrast */
+    font-weight: 400; 
+    color: #d6d3d1;   
+}
+
+/* DESKTOP STRUCTURING: Acting as a seamless horizontal flex row layout across screens */
+.nav-menu-wrapper {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40px;
 }
 
 /* Center Menu Links Container */
@@ -100,15 +106,11 @@ body {
     display: flex;
     align-items: center;
     gap: 24px;
-    margin: 0 auto;         /* Automatically balances side tracking space */
+    margin: 0 auto;         
 }
 
 /* Right Action Button Container */
 .nav-links-right {
-    position: absolute;
-    right: 30px;            /* Snaps search and button groups to the absolute right margin padding line */
-    top: 50%;
-    transform: translateY(-50%); /* Keeps container items vertically centered */
     display: flex;
     align-items: center;
     gap: 20px;
@@ -224,8 +226,8 @@ body {
 
 .hero-parallax-bg {
     background-image: url('AECONIC-BACKGROUND.jpg');
-    height: 100vh;            /* Reverted to 100vh to ensure it fills the vertical screen completely */
-    margin-top: 68px;         /* Shifts layout down safely below the solid fixed navbar */
+    height: 100vh;            
+    margin-top: 68px;         
     width: 100%;
     
     /* Lock background layer fixed on viewport while document body tracks up */
@@ -266,7 +268,7 @@ body {
     margin: 60px auto;
     padding: 0 20px;
     position: relative;
-    z-index: 20; /* Ensures content text shifts perfectly on top of fixed background box */
+    z-index: 20; 
 }
 
 .content-container h1 {
@@ -546,84 +548,148 @@ body {
 }
 
 /* ========================================================
+   MOBILE TABS & UTILITY RE-INDEX TRIGGERS
+   ======================================================== */
+
+.menu-toggle-checkbox {
+    display: none;
+}
+
+.hamburger-label {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 3000;
+}
+
+.hamburger-label span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ========================================================
    MOBILE & TABLET RESPONSIVE VIEW FRAMEWORK EXTENSIONS
    ======================================================== */
 
 @media screen and (max-width: 768px) {
-    /* Navbar Structural Realignment */
     .navbar {
-        position: static;             /* Returns to document flow for mobile stack rendering */
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 20px;
-        text-align: center;
-        min-height: auto; 
+        padding: 10px 20px;
     }
 
-    /* Resets tracking values so containers wrap cleanly on viewports */
-    .company-logo,
-    .nav-links-right {
-        position: static;
-        transform: none;
-        justify-content: center;
+    /* Unveils the graphical hamburger toggle icon */
+    .hamburger-label {
+        display: flex;
+    }
+
+    /* Transforms transparent desktop row grid layouts into standard mobile drawers */
+    .nav-menu-wrapper {
+        position: fixed;
+        top: 68px;
+        left: 0;
         width: 100%;
+        height: calc(100vh - 68px);
+        background-color: #292524;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 40px 24px;
+        gap: 30px;
+        overflow-y: auto;
+        margin-left: 0;
+        
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
     }
 
-    /* Stacks center options link tracks vertically */
+    /* Pulls drawer into view when utility checkbox gets triggered */
+    .menu-toggle-checkbox:checked ~ .nav-menu-wrapper {
+        transform: translateX(0);
+    }
+
+    /* Animates flat lines into a close cross icon on screen selections */
+    .menu-toggle-checkbox:checked ~ .hamburger-label span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle-checkbox:checked ~ .hamburger-label span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle-checkbox:checked ~ .hamburger-label span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Vertical stack logic for mobile viewports */
     .nav-links-center {
         flex-direction: column;
         width: 100%;
-        gap: 12px;
+        gap: 20px;
     }
 
-    /* Allows menus to collapse cleanly inside layout bounds */
+    .nav-item {
+        font-size: 18px;
+        width: 100%;
+        justify-content: center;
+    }
+
     .dropdown-menu {
         position: static;
         transform: none !important;
         width: 100%;
         box-shadow: none;
-        background-color: rgba(0, 0, 0, 0.15); 
-        margin-top: 5px;
-        display: none; 
-    }
-
-    /* Expands drop selections cleanly when matching active parent states */
-    .dropdown:hover .dropdown-menu {
-        display: block;
+        background-color: rgba(0, 0, 0, 0.2);
+        margin-top: 8px;
         opacity: 1;
         pointer-events: auto;
+        display: none;
     }
 
-    /* Stacks your search container bar and CTA box buttons nicely */
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+        display: block;
+    }
+
     .nav-links-right {
-        flex-direction: column-reverse;
-        gap: 15px;
-        margin-top: 5px;
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+        margin-top: 10px;
+        border-top: 1px solid #44403c;
+        padding-top: 25px;
     }
 
-    .search-container, 
+    .search-container {
+        width: 100%;
+    }
+
     .search-input {
-        width: 100% !important; 
+        width: 100% !important;
+        padding: 10px 40px 10px 16px;
+        font-size: 16px;
     }
 
     .inquiry-btn {
         width: 100%;
         text-align: center;
-        padding: 12px; 
+        padding: 14px !important;
+        font-size: 16px;
     }
 
-    /* Main Page Box Adaptations */
+    /* Card & Content adjustments */
     .content-container {
-        margin: 30px auto;
-        padding: 0 15px;
+        margin: 40px auto;
+        padding: 0 20px;
     }
 
     .content-container h1 {
-        font-size: 28px; 
-        margin-bottom: 25px;
+        font-size: 26px;
+        line-height: 1.3;
     }
 
-    /* Global Cards Layout */
     .project-section, 
     .award-section, 
     .news-section, 
@@ -634,11 +700,6 @@ body {
         margin-bottom: 25px !important;
     }
 
-    .content-container article h2 {
-        font-size: 20px; 
-    }
-
-    /* Horizontal Navigation Dropping Panel Reset */
     .project-preview-menu {
         width: 100% !important;
         padding: 10px !important;
@@ -646,18 +707,17 @@ body {
 
     .dropdown-items-container {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
 
     .preview-item {
-        flex-direction: row !important; 
-        align-items: center !important;
-        gap: 10px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
     }
 
     .preview-thumbnail {
-        width: 60px !important;
-        height: 60px !important;
+        width: 100% !important;
+        height: 100px !important;
     }
 
     .dropdown-footer {
