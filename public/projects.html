@@ -1,36 +1,31 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Projects | AECONIC Design and Build</title>
 
-```
-<!-- Browser Tab Icon Configuration (Favicon) -->
-<link rel="icon" type="image/jpeg" href="AECONIC-LOGO.jpg">
+    <link rel="icon" type="image/jpeg" href="AECONIC-LOGO.jpg">
 
-<link rel="stylesheet" href="webdesign.css">
-<style>
-    .project-section {
-        background-color: #ffffff;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        padding: 40px;
-        margin-bottom: 40px;
-        text-align: left;
-        scroll-margin-top: 90px; 
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-    .project-section h2 {
-        color: #111827;
-        margin-bottom: 15px;
-        border-bottom: 2px solid #e5e7eb;
-        padding-bottom: 8px;
-    }
-</style>
-```
-
+    <link rel="stylesheet" href="webdesign.css">
+    <style>
+        .project-section {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+            scroll-margin-top: 90px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .project-section h2 {
+            color: #111827;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -44,114 +39,109 @@
             </a>
         </div>
 
-```
-    <div class="nav-links-center">
-        <a href="webpage.html" class="nav-item">
-            Home
-        </a>
-        <div class="dropdown">
-            <a href="#" class="nav-item dropdown-toggle">
-                About Us <span class="arrow-icon"></span>
-            </a>
-            <div class="dropdown-menu">
-                <a href="about-story.html">
-                    Our Story
-                </a>
-                <a href="about-values.html">
-                    Our Core Values
-                </a>
-                <a href="about-awards.html">
-                    Awards & Certification
-                </a>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
+        <label for="menu-toggle" class="hamburger-label">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        
+        <div class="nav-menu-wrapper">
+            <div class="nav-links-center">
+                <a href="webpage.html" class="nav-item">Home</a>
+                
+                <div class="dropdown">
+                    <input type="checkbox" id="about-toggle" class="sub-toggle-checkbox">
+                    <label for="about-toggle" class="nav-item dropdown-toggle">
+                        About Us <span class="arrow-icon"></span>
+                    </label>
+                    <div class="dropdown-menu">
+                        <a href="about-story.html">Our Story</a>
+                        <a href="about-values.html">Our Core Values</a>
+                        <a href="about-awards.html">Awards & Certification</a>
+                    </div>
+                </div>
+                
+                <div class="dropdown project-dropdown-parent">
+                    <input type="checkbox" id="project-toggle" class="sub-toggle-checkbox">
+                    <label for="project-toggle" class="nav-item dropdown-toggle">
+                        Our Projects <span class="arrow-icon"></span>
+                    </label>
+                    <div class="dropdown-menu project-preview-menu">
+                        <div class="dropdown-items-container">
+                            <a href="projects.html#project1" class="preview-item">
+                                <div class="preview-thumbnail"></div>
+                                <div class="preview-text">
+                                    <span class="preview-title">Project 1: Sample</span>
+                                    <span class="preview-desc">Integrated modular layouts and infrastructure setups.</span>
+                                </div>
+                            </a>
+                            <a href="projects.html#project2" class="preview-item">
+                                <div class="preview-thumbnail"></div>
+                                <div class="preview-text">
+                                    <span class="preview-title">Project 2: Sample</span>
+                                    <span class="preview-desc">Framework expansion and centralized system node structures.</span>
+                                </div>
+                            </a>
+                            <a href="projects.html#project3" class="preview-item">
+                                <div class="preview-thumbnail"></div>
+                                <div class="preview-text">
+                                    <span class="preview-title">Project 3: Sample</span>
+                                    <span class="preview-desc">Smart node distribution channels and cross-platform syncing.</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dropdown">
+                    <input type="checkbox" id="news-toggle" class="sub-toggle-checkbox">
+                    <label for="news-toggle" class="nav-item dropdown-toggle">
+                        What's New <span class="arrow-icon"></span>
+                    </label>
+                    <div class="dropdown-menu">
+                        <a href="news-updates.html">News & Updates</a>
+                        <a href="blog-articles.html">Blog Articles</a>
+                        <a href="news-events.html">Events</a>
+                    </div>
+                </div>
+                
+                <a href="careers.html" class="nav-item">Careers</a>
+                <a href="contact.html" class="nav-item">Contact Us</a>
+            </div>
+            <div class="nav-links-right">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search...">
+                    <span class="search-icon"></span>
+                </div>
+                <a href="contact.html" class="nav-item inquiry-btn">Inquire Now</a>
             </div>
         </div>
-        <div class="dropdown project-dropdown-parent">
-            <a href="projects.html" class="nav-item dropdown-toggle">
-                Our Projects <span class="arrow-icon"></span>
-            </a>
-            <div class="dropdown-menu project-preview-menu">
-                <a href="projects.html#project1" class="preview-item">
-                    <div class="preview-thumbnail"></div>
-                    <div class="preview-text">
-                        <span class="preview-title">Project 1: Sample</span>
-                        <span class="preview-desc">Integrated modular layouts and infrastructure setups.</span>
-                    </div>
-                </a>
-                <a href="projects.html#project2" class="preview-item">
-                    <div class="preview-thumbnail"></div>
-                    <div class="preview-text">
-                        <span class="preview-title">Project 2: Sample</span>
-                        <span class="preview-desc">Framework expansion and centralized system node structures.</span>
-                    </div>
-                </a>
-                <a href="projects.html#project3" class="preview-item">
-                    <div class="preview-thumbnail"></div>
-                    <div class="preview-text">
-                        <span class="preview-title">Project 3: Sample</span>
-                        <span class="preview-desc">Smart node distribution channels and cross-platform syncing.</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a href="#" class="nav-item dropdown-toggle">
-                What's New <span class="arrow-icon"></span>
-            </a>
-            <div class="dropdown-menu">
-                <a href="news-updates.html">
-                    News & Updates
-                </a>
-                <a href="blog-articles.html">
-                    Blog Articles
-                </a>
-                <a href="news-events.html">
-                    Events
-                </a>
-            </div>
-        </div>
-        <a href="careers.html" class="nav-item">
-            Careers
-        </a>
-        <a href="contact.html" class="nav-item">
-            Contact Us
-        </a>
-    </div>
-    <div class="nav-links-right">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search...">
-            <span class="search-icon"></span>
-        </div>
-        <a href="contact.html" class="nav-item inquiry-btn">
-            Inquire Now
-        </a>
-    </div>
-</nav>
+    </nav>
 
-<main class="content-container" style="max-width: 900px; margin: 128px auto 60px auto;">
-    <h1 style="margin-bottom: 10px; color: #111827;">
-        Our Projects
-    </h1>
-    
-    <p class="page-subtitle" style="font-size: 16px; color: #6b7280; margin: 0 auto 40px auto; font-style: italic; text-align: center;">
-        Every project we create is more than a structure—it is a space shaped by vision, care, and purpose. From early sketches to final construction, we pour dedication into building environments that people can live in, work in, and truly feel connected to for years to come.
-    </p>
-
-    <article id="project1" class="project-section">
-        <h2>
-            Project 1: Sample only
-        </h2>
-        <p style="margin-bottom: 20px;">
-            This section documents our initial major project rollout. It features integrated infrastructure layouts, optimized response protocols, and modular design configurations built to maximize operational efficiency across all local department systems.
+    <main class="content-container" style="max-width: 900px; margin: 128px auto 60px auto;">
+        <h1 style="margin-bottom: 10px; color: #111827;">
+            Our Projects
+        </h1>
+        
+        <p class="page-subtitle" style="font-size: 16px; color: #6b7280; margin: 0 auto 40px auto; font-style: italic; text-align: center;">
+            Every project we create is more than a structure—it is a space shaped by vision, care, and purpose. From early sketches to final construction, we pour dedication into building environments that people can live in, work in, and truly feel connected to for years to come.
         </p>
-        <div class="rich-content-view">
-            <img src="your-editor-screenshot.jpg" alt="Project Dashboard Development Screenshot" style="width: 100%; height: auto; border-radius: 6px;">
-        </div>
-    </article>
-</main>
 
-<script src="search.js"></script>
-<script src="content-loader.js"></script>
-```
+        <article id="project1" class="project-section">
+            <h2>
+                Project 1: Sample only
+            </h2>
+            <p style="margin-bottom: 20px;">
+                This section documents our initial major project rollout. It features integrated infrastructure layouts, optimized response protocols, and modular design configurations built to maximize operational efficiency across all local department systems.
+            </p>
+            <div class="rich-content-view">
+                <img src="your-editor-screenshot.jpg" alt="Project Dashboard Development Screenshot" style="width: 100%; height: auto; border-radius: 6px;">
+            </div>
+        </article>
+    </main>
 
+    <script src="search.js"></script>
+    <script src="content-loader.js"></script>
 </body>
 </html>
