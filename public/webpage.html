@@ -265,6 +265,65 @@
             transform: translateX(3px);
         }
 
+        /* ========================================================
+           NEW "WHAT'S NEW" GRID LINE SECTION (Based on image_89e239.png)
+           ======================================================== */
+        .whats-new-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e7e5e4; /* Soft layout accent border line */
+            padding-top: 45px;
+            margin-top: 90px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .whats-new-content {
+            max-width: 70%;
+            text-align: left;
+        }
+
+        .whats-new-content h2 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #1c1917; /* Slate core title tone match */
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .whats-new-content p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #57534e;
+            margin: 0;
+        }
+
+        .whats-new-action {
+            flex-shrink: 0;
+        }
+
+        .view-articles-btn {
+            display: inline-block;
+            background-color: #292524;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 4px;
+            border: 2px solid #292524;
+            transition: all 0.25s ease;
+        }
+
+        .view-articles-btn:hover {
+            background-color: transparent;
+            color: #292524;
+            transform: translateY(-2px);
+        }
+
         /* Responsive Adjustments for Mobile Views */
         @media screen and (max-width: 768px) {
             .welcome-row {
@@ -333,6 +392,29 @@
             .see-more-action-btn {
                 width: 100%;
                 text-align: center;
+            }
+
+            /* Responsive adjustments for What's New section */
+            .whats-new-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+                margin-top: 60px;
+                padding-top: 35px;
+            }
+            .whats-new-content {
+                max-width: 100%;
+            }
+            .whats-new-content h2 {
+                font-size: 30px;
+            }
+            .whats-new-action {
+                width: 100%;
+            }
+            .view-articles-btn {
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -486,19 +568,38 @@
             </div>
         </div>
 
+        <!-- ========================================================
+             HOMEPAGE DYNAMIC PROJECTS PREVIEW TRACK
+             ======================================================== -->
         <div class="home-projects-section">
             <div class="home-projects-header">
                 <h2>OUR PROJECTS</h2>
                 <p class="project-highlight-quote">Your hard work is the foundation of a strong future.</p>
+                <p class="project-header-description">Every structure we build is a testament to the dreams, dedication, and resilience of the people behind them. We don't just pour concrete and frame walls; we transform your vision into enduring spaces, ensuring that your life's work stands tall and proud for generations to come.</p>
             </div>
 
             <div class="home-projects-dynamic-box">
-                </div>
-
+                <!-- Loaded dynamically by content-loader.js -->
+            </div>
+            
             <div class="home-projects-footer">
                 <a href="projects.html" class="see-more-action-btn">See More</a>
             </div>
         </div>
+
+        <!-- ========================================================
+             NEW "WHAT'S NEW" GRID LINE SECTION (Based on image_89e239.png)
+             ======================================================== -->
+        <div class="whats-new-section">
+            <div class="whats-new-content">
+                <h2>What's New</h2>
+                <p>Explore updates on AECONIC Design and Build—our communities, milestones, and stories that inspire better living.</p>
+            </div>
+            <div class="whats-new-action">
+                <a href="news-updates.html" class="view-articles-btn">View All Articles</a>
+            </div>
+        </div>
+
     </main>
     
     <script src="search.js"></script>

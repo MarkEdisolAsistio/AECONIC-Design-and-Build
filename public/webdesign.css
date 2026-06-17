@@ -23,12 +23,12 @@ body {
 
 /* Navigation Bar Structure - Deep Charcoal Solid Top Accent Block & Sticky Lock */
 .navbar {
-    background-color: #292524;                 
+    background-color: #292524;                  
     display: flex;
     justify-content: space-between; 
     align-items: center;
     padding: 10px 30px; 
-    border-bottom: 1px solid #1c1917;         
+    border-bottom: 1px solid #1c1917;          
     
     /* Sticky Positioning Attributes */
     position: fixed;                               
@@ -36,7 +36,7 @@ body {
     left: 0;
     width: 100%;
     
-    min-height: 68px;                         
+    min-height: 68px;                          
     z-index: 2000;                            
 }
 
@@ -548,6 +548,90 @@ body {
 }
 
 /* ========================================================
+   NEW "WHAT'S NEW" GRID LINE SECTION (Based on image_89e239.png)
+   ======================================================== */
+.whats-new-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #292524; /* Elegant layout accent top line spacer */
+    padding-top: 45px;
+    margin-top: 90px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.whats-new-content {
+    max-width: 70%;
+    text-align: left;
+}
+
+.whats-new-content h2 {
+    font-size: 38px;
+    font-weight: 800;
+    color: #1c1917; /* High-contrast core dark slate tone */
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.whats-new-content p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #57534e;
+    margin: 0;
+}
+
+.whats-new-action {
+    flex-shrink: 0;
+}
+
+.view-articles-btn {
+    display: inline-block;
+    background-color: #292524;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 4px;
+    border: 2px solid #292524;
+    transition: all 0.25s ease;
+}
+
+.view-articles-btn:hover {
+    background-color: transparent;
+    color: #292524;
+    transform: translateY(-2px);
+}
+
+/* ========================================================
+   PROJECTS PREVIEW HEADER TYPOGRAPHY MODS
+   ======================================================== */
+
+/* Styled highlight text block */
+.home-projects-header .project-highlight-quote {
+    font-size: 38px;
+    font-weight: 800;
+    color: #1c1917;
+    line-height: 1.25;
+    margin: 0;
+    max-width: 800px; /* Adds the right indent by matching the description's width */
+    padding-right: 20px; /* Gives it just a little extra breathing room on the right */
+}
+
+/* Heartfelt description below the highlight quote */
+.home-projects-header .project-header-description {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #44403c; /* Matches your welcome text warm gray */
+    margin-top: 16px;
+    margin-bottom: 0;
+    max-width: 800px; /* Keeps the text block readable and prevents it from stretching too wide */
+}
+
+/* ========================================================
    MOBILE TABS & UTILITY RE-INDEX TRIGGERS
    ======================================================== */
 
@@ -776,6 +860,35 @@ body {
     .see-more-btn {
         width: 100%;
         text-align: center;
+    }
+
+    /* Projects Mobile Paragraph Alignment Modification Hooks */
+    .home-projects-header .project-header-description {
+        font-size: 15px;
+        text-align: center; /* Centers text block to match global mobile standards */
+    }
+
+    /* Responsive layout shifts for What's New banner section */
+    .whats-new-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        margin-top: 60px;
+        padding-top: 35px;
+    }
+    .whats-new-content {
+        max-width: 100%;
+    }
+    .whats-new-content h2 {
+        font-size: 30px;
+    }
+    .whats-new-action {
+        width: 100%;
+    }
+    .view-articles-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
     }
 }
 
