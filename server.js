@@ -30,7 +30,7 @@ mongoose.connect(MONGO_URI)
 
 // Create a single flexible schema to hold all your website sections
 const ContentSchema = new mongoose.Schema({
-    category: { type: String, required: true, index: true }, // 'projects', 'news', 'blogs', etc.
+    category: { type: String, required: true, index: true }, // 'projects', 'news', 'blogs', 'story', 'values', etc.
     id: { type: Number, required: true, unique: true },      // Keeps compatibility with your existing frontend code
     title: { type: String, required: true },
     desc: { type: String, required: true },
@@ -167,7 +167,7 @@ app.get('/api/content', async (req, res) => {
         
         // Structure the database output to look exactly like your old data.json layout map
         const structuredData = {
-            projects: [], news: [], blogs: [], events: [], careers: [], awards: []
+            projects: [], news: [], blogs: [], events: [], careers: [], awards: [], story: [], values: []
         };
 
         allItems.forEach(item => {
@@ -205,7 +205,7 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
         return res.status(400).json({ success: false, error: 'Required text fields are missing.' });
     }
 
-    const validCategories = ['projects', 'news', 'blogs', 'events', 'careers', 'awards'];
+    const validCategories = ['projects', 'news', 'blogs', 'events', 'careers', 'awards', 'story', 'values'];
     if (!validCategories.includes(category)) {
         return res.status(400).json({ success: false, error: 'Invalid data category mapping token.' });
     }
