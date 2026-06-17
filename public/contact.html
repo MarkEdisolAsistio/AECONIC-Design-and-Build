@@ -38,7 +38,7 @@
             margin-bottom: 35px;
         }
         /* Master link button properties */
-        .social-btn {
+        .social-btn-contact {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -52,7 +52,7 @@
             transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
         }
         /* Inline SVG Icon properties - inherits parent text color */
-        .social-btn svg {
+        .social-btn-contact svg {
             width: 20px;
             height: 20px;
             fill: currentColor; 
@@ -268,25 +268,26 @@
         </p>
         
         <div class="social-stack">
-            <a href="mailto:your-email@example.com" class="social-btn btn-email">
+            <!-- Note: Class changed to social-btn-contact here to avoid conflicting with footer's social-btn -->
+            <a href="mailto:your-email@example.com" class="social-btn-contact btn-email">
                 <svg viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 Email Us
             </a>
-            <a href="#" target="_blank" class="social-btn btn-facebook">
+            <a href="#" target="_blank" class="social-btn-contact btn-facebook">
                 <svg viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
                 Facebook
             </a>
-            <a href="#" target="_blank" class="social-btn btn-instagram">
+            <a href="#" target="_blank" class="social-btn-contact btn-instagram">
                 <svg viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
                 </svg>
                 Instagram
             </a>
-            <a href="#" target="_blank" class="social-btn btn-tiktok">
+            <a href="#" target="_blank" class="social-btn-contact btn-tiktok">
                 <svg viewBox="0 0 24 24">
                     <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.94 1.18 2.27 2 3.74 2.37v3.98c-1.66-.02-3.3-.48-4.75-1.31-.76-.44-1.44-.99-2-1.64v7.71c.08 1.83-.43 3.66-1.49 5.11-1.31 1.83-3.41 3-5.69 3.16-2.58.2-5.14-.73-6.9-2.61-1.89-1.98-2.61-4.78-1.91-7.46.54-2.14 1.95-3.99 3.86-5.02 1.63-.9 3.5-1.19 5.31-.83V11c-1-.23-2.06-.11-3 .34-.96.46-1.74 1.27-2.17 2.27-.47 1.07-.48 2.3-.04 3.38.43 1.05 1.25 1.89 2.29 2.33 1.12.48 2.41.44 3.5-.1 1.05-.51 1.81-1.48 2.05-2.62.06-.27.08-.55.08-.82V.02z"/>
                 </svg>
@@ -299,6 +300,116 @@
             </p>
         </div>
     </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="main-footer">
+        <div class="footer-top-container">
+            
+            <div class="footer-col brand-summary-col">
+                <div class="footer-logo">
+                    <img src="AECONIC-LOGO.jpg" alt="AECONIC Design and Build Logo">
+                    <div class="footer-logo-text">
+                        <span class="f-brand-bold">AECONIC</span>
+                        <span class="f-brand-light">Design and Build</span>
+                    </div>
+                </div>
+                <p class="footer-brand-desc">
+                    Building masterpieces with heart, integrity, and innovation. We orchestrate resilient, sustainable, and premium built environments.
+                </p>
+                <div class="footer-newsletter">
+                    <input type="email" class="newsletter-input" placeholder="Your Email">
+                    <button type="button" class="newsletter-submit-btn">Subscribe</button>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="webpage.html">Home</a></li>
+                    <li><a href="about-story.html">Our Story</a></li>
+                    <li><a href="about-values.html">Our Core Values</a></li>
+                    <li><a href="about-awards.html">Awards & Certifications</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <h3>Our Pillars</h3>
+                <ul>
+                    <li><a href="projects.html">Architectural</a></li>
+                    <li><a href="projects.html">Engineering</a></li>
+                    <li><a href="projects.html">Construction</a></li>
+                    <li><a href="projects.html">Interior Design</a></li>
+                    <li><a href="projects.html">Consultancy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-info-col">
+                <h3>Contact Us</h3>
+                <ul class="contact-data-list">
+                    <li class="address-item">
+                        <span class="icon">📍</span>
+                        <span class="text">Ground Flr., Siwa Apt., Purok 5, Samson Subdivision, Sumacab Este, Cabanatuan City, Nueva Ecija, 3100</span>
+                    </li>
+                    <li>
+                        <span class="icon">✉️</span>
+                        <span class="text"><a href="mailto:adesignbuild0829@gmail.com">adesignbuild0829@gmail.com</a></span>
+                    </li>
+                    <li>
+                        <span class="icon">📞</span>
+                        <span class="text">(044) 960 1147</span>
+                    </li>
+                    <li>
+                        <span class="icon">📱</span>
+                        <span class="text">+63 919 995 9629</span>
+                    </li>
+                </ul>
+                
+                <div class="footer-social-wrapper">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons-row">
+                        <a href="https://facebook.com" class="social-btn facebook" target="_blank" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/>
+                            </svg>
+                        </a>
+                        <a href="https://instagram.com" class="social-btn instagram" target="_blank" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                            </svg>
+                        </a>
+                        <a href="https://tiktok.com" class="social-btn tiktok" target="_blank" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.01 1.63 4.15 1.13 1.22 2.69 1.92 4.32 2.01v3.98c-1.35-.03-2.69-.45-3.81-1.21-.69-.47-1.27-1.1-1.72-1.83v6.61c-.04 2.45-1.12 4.79-2.96 6.36-1.95 1.68-4.57 2.42-7.14 2.03-2.61-.38-4.97-1.99-6.22-4.34-1.32-2.45-1.34-5.46-.05-7.92 1.2-2.31 3.5-3.95 6.09-4.29 1-.14 2.03-.04 2.99.27V9.92c-.78-.26-1.62-.31-2.43-.13-1.37.28-2.58 1.2-3.23 2.44-.69 1.3-.65 2.91.1 4.17.71 1.21 2.05 1.99 3.46 2.02 1.42.04 2.76-.7 3.44-1.94.39-.71.55-1.53.54-2.34V.02z"/>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" class="social-btn youtube" target="_blank" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.503 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.387.508 9.387.508s7.517 0 9.387-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="copyright-text">
+                    Copyright © 2026 AECONIC | All Rights Reserved
+                </div>
+                <div class="legal-links">
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="search.js"></script>
     <script src="content-loader.js"></script>

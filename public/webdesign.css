@@ -892,71 +892,277 @@ body {
 }
 
 /* ========================================================
-   FOOTER SOCIAL FOLLOW ENGINE & SVG ACCENTS
+   BRAND CONTEXT PREMIUM CORPORATE FOOTER STYLES
    ======================================================== */
-.follow-us-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
+.main-footer {
+    background-color: #1c1917; 
+    color: #e7e5e4;
+    padding: 80px 0 0 0;
+    margin-top: 120px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.follow-us-title {
-    font-size: 16px;
-    font-weight: 800;
+.footer-top-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+    display: grid;
+    grid-template-columns: 1.3fr 0.8fr 0.8fr 1.3fr;
+    gap: 40px;
+}
+
+.footer-col h3 {
     color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 25px 0;
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
-.social-icons-grid {
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    height: 40px;
+    width: auto;
+}
+
+.footer-logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.f-brand-bold {
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.f-brand-light {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    color: #a8a29e;
+}
+
+.footer-brand-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #a8a29e;
+    margin: 0 0 25px 0;
+}
+
+.footer-newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 280px;
+}
+
+.newsletter-input {
+    background-color: #292524;
+    border: 1px solid #44403c;
+    border-radius: 4px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.newsletter-input:focus {
+    border-color: #78716c;
+}
+
+.newsletter-submit-btn {
+    background-color: #292524;
+    border: 2px solid #44403c;
+    color: #ffffff;
+    padding: 11px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.newsletter-submit-btn:hover {
+    background-color: #ffffff;
+    color: #1c1917;
+    border-color: #ffffff;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    color: #a8a29e;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+}
+
+.contact-data-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #a8a29e;
+    margin-bottom: 16px !important;
+}
+
+.contact-data-list li .icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.contact-data-list li a {
+    color: #a8a29e;
+    text-decoration: none;
+    font-size: 13.5px;
+}
+
+.contact-data-list li a:hover {
+    color: #ffffff;
+}
+
+.footer-social-wrapper h4 {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 25px 0 12px 0;
+}
+
+.social-icons-row {
     display: flex;
     gap: 12px;
 }
 
-.social-icon-box {
+.social-btn {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 44px;
-    height: 44px;
-    background-color: rgba(255, 255, 255, 0.05); /* Match your preview item panel blend */
-    border: 1px solid #44403c; /* Match your system container border line color */
-    border-radius: 6px;
-    color: #d6d3d1; /* Base item font contrast level */
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: #292524;
+    border: 1px solid #44403c;
+    border-radius: 4px;
+    color: #a8a29e;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 10px;
+    padding: 9px;
+    box-sizing: border-box;
 }
 
-.social-icon-box svg {
+.social-btn svg {
     width: 100%;
     height: 100%;
-    transition: transform 0.2s ease;
 }
 
-/* Hover Dynamics - Turns into official core brand coloring schemes seamlessly */
-.social-icon-box:hover {
+.social-btn:hover {
     color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.social-icon-box.fab:hover {
+.social-btn.facebook:hover {
     background-color: #1877f2;
     border-color: #1877f2;
 }
 
-.social-icon-box.ig:hover {
+.social-btn.instagram:hover {
     background-color: #e1306c;
     border-color: #e1306c;
 }
 
-.social-icon-box.tt:hover {
+.social-btn.tiktok:hover {
     background-color: #000000;
     border-color: #44403c;
 }
 
-.social-icon-box.yt:hover {
+.social-btn.youtube:hover {
     background-color: #ff0000;
     border-color: #ff0000;
+}
+
+.footer-bottom-bar {
+    border-top: 1px solid #292524;
+    padding: 30px 0;
+    background-color: #141210;
+}
+
+.footer-bottom-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #78716c;
+}
+
+.legal-links {
+    display: flex;
+    gap: 24px;
+}
+
+.legal-links a {
+    color: #78716c;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.legal-links a:hover {
+    color: #a8a29e;
+}
+
+/* ========================================================
+   RESPONSIVE FOOTER MEDIA QUERIES
+   ======================================================== */
+@media screen and (max-width: 992px) {
+    .footer-top-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px 30px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .main-footer {
+        padding: 60px 0 0 0;
+    }
+    .footer-top-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .footer-bottom-inner {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .legal-links {
+        justify-content: center;
+    }
 }
