@@ -6,7 +6,9 @@ const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const mongoose = require('mongoose'); // Added Mongoose
+const mongoose = require('mongoose'); 
+const { SitemapStream, streamToPromise } = require('sitemap'); // Added for sitemap generation
+const { Readable } = require('stream');                     // Added for streaming pipeline utilities
 
 const app = express();
 const PORT = process.env.PORT || 5500;
@@ -81,6 +83,59 @@ function requireAdmin(req, res, next) {
     res.redirect('/admin-login');
 }
 
+// ========================================================
+// DYNAMIC LIVE SITEMAP ROUTE (.XML GENERATOR)
+// ========================================================
+
+app.get('/sitemap.xml', async (req, res) => {
+    try {
+        // Base static files mapping architecture
+        const links = [
+            { url: '/', changefreq: 'daily', priority: 1.0 },
+            { url: '/projects.html', changefreq: 'weekly', priority: 0.8 },
+            { url: '/news-updates.html', changefreq: 'weekly', priority: 0.7 },
+            { url: '/blog-articles.html', changefreq: 'weekly', priority: 0.7 },
+            { url: '/news-events.html', changefreq: 'weekly', priority: 0.6 },
+            { url: '/careers.html', changefreq: 'monthly', priority: 0.5 },
+            { url: '/contact.html', changefreq: 'monthly', priority: 0.5 },
+            { url: '/about-story.html', changefreq: 'monthly', priority: 0.5 },
+            { url: '/about-values.html', changefreq: 'monthly', priority: 0.5 },
+            { url: '/about-awards.html', changefreq: 'monthly', priority: 0.5 }
+        ];
+
+        // Fetch dynamic items from MongoDB to append internal track locations if needed
+        const dynamicItems = await Content.find({});
+        dynamicItems.forEach(item => {
+            // Determines routing mapping depending on schema categories
+            let targetPage = '';
+            if (item.category === 'projects') targetPage = '/projects.html';
+            else if (item.category === 'news') targetPage = '/news-updates.html';
+            else if (item.category === 'blogs') targetPage = '/blog-articles.html';
+            else if (item.category === 'events') targetPage = '/news-events.html';
+
+            if (targetPage) {
+                links.push({
+                    url: `${targetPage}#project${item.id}`,
+                    changefreq: 'weekly',
+                    priority: 0.7
+                });
+            }
+        });
+
+        const stream = new SitemapStream({ hostname: 'https://aeconic-design-and-build.onrender.com' });
+        
+        res.header('Content-Type', 'application/xml');
+        
+        const xmlBuffer = await streamToPromise(Readable.from(links).pipe(stream));
+        res.send(xmlBuffer.toString());
+
+    } catch (error) {
+        console.error("❌ Sitemap generation failed:", error);
+        res.status(500).end();
+    }
+});
+
+// Serve static assets after custom endpoints to avoid wildcard hijacking routing errors
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ========================================================

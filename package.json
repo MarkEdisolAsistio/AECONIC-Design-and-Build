@@ -5,6 +5,7 @@
     "express-session": "^1.19.0",
     "mongodb": "3.7",
     "mongoose": "^9.7.0",
-    "multer": "^2.2.0"
+    "multer": "^2.2.0",
+    "sitemap": "^9.0.1"
   }
 }
