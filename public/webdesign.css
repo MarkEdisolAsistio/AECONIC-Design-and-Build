@@ -586,6 +586,15 @@ body {
         display: flex;
     }
 
+    /* MOBILE HERO BACKGROUND POSITION REPAIR HOOK */
+    .hero-parallax-bg {
+        height: 60vh; /* Prevents extreme image zooming on thin aspect ratios */
+        margin-top: 68px;
+        background-attachment: scroll !important; /* Disables glitchy mobile window parallax blocks */
+        background-position: center center;
+        background-size: cover; 
+    }
+
     /* Transforms transparent desktop row grid layouts into standard mobile drawers */
     .nav-menu-wrapper {
         position: fixed;
