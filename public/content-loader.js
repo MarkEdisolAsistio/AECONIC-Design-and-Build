@@ -59,7 +59,53 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // ========================================================
-        // 2. AWARDS WEBPAGE (about-awards.html)
+        // 2. OUR STORY WEBPAGE (about-story.html) - MULTIPLE CONTENT FEEDS LIST MATCH
+        // ========================================================
+        else if (currentPath.includes("about-story.html") && data.story) {
+            setupMainHeader();
+
+            [...data.story].reverse().forEach(storyItem => {
+                const article = document.createElement("article");
+                article.id = `story${storyItem.id}`;
+                article.className = "project-section"; // Inherits your clean white layout box styles
+
+                article.innerHTML = `
+                    <h2>${storyItem.title}</h2>
+                    ${formatDateString(storyItem.itemDate)}
+                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
+                        ${storyItem.desc}
+                    </div>
+                    ${createVideoPlayer(storyItem.videoPath)}
+                `;
+                mainContainer.appendChild(article);
+            });
+        }
+
+        // ========================================================
+        // 3. CORE VALUES WEBPAGE (about-values.html) - MULTIPLE CONTENT FEEDS LIST MATCH
+        // ========================================================
+        else if (currentPath.includes("about-values.html") && data.values) {
+            setupMainHeader();
+
+            [...data.values].reverse().forEach(valueItem => {
+                const article = document.createElement("article");
+                article.id = `value${valueItem.id}`;
+                article.className = "project-section"; // Inherits your clean white layout box styles
+
+                article.innerHTML = `
+                    <h2>${valueItem.title}</h2>
+                    ${formatDateString(valueItem.itemDate)}
+                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
+                        ${valueItem.desc}
+                    </div>
+                    ${createVideoPlayer(valueItem.videoPath)}
+                `;
+                mainContainer.appendChild(article);
+            });
+        }
+
+        // ========================================================
+        // 4. AWARDS WEBPAGE (about-awards.html)
         // ========================================================
         else if (currentPath.includes("about-awards.html") && data.awards) {
             setupMainHeader();
@@ -82,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // ========================================================
-        // 3. NEWS & UPDATES WEBPAGE (news-updates.html)
+        // 5. NEWS & UPDATES WEBPAGE (news-updates.html)
         // ========================================================
         else if (currentPath.includes("news-updates.html") && data.news) {
             setupMainHeader();
@@ -105,7 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // ========================================================
-        // 4. BLOG ARTICLES WEBPAGE (blog-articles.html)
+        // 6. BLOG ARTICLES WEBPAGE (blog-articles.html)
         // ========================================================
         else if (currentPath.includes("blog-articles.html") && data.blogs) {
             setupMainHeader();
@@ -128,7 +174,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // ========================================================
-        // 5. EVENTS WEBPAGE (news-events.html)
+        // 7. EVENTS WEBPAGE (news-events.html)
         // ========================================================
         else if (currentPath.includes("news-events.html") && data.events) {
             setupMainHeader();
@@ -151,7 +197,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // ========================================================
-        // 6. CAREERS WEBPAGE (careers.html)
+        // 8. CAREERS WEBPAGE (careers.html)
         // ========================================================
         else if (currentPath.includes("careers.html") && data.careers) {
             setupMainHeader();
