@@ -40,6 +40,13 @@ const ContentSchema = new mongoose.Schema({
 
 const Content = mongoose.model('Content', ContentSchema);
 
+// Create a schema specifically for Newsletter Subscribers
+const SubscriberSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true, trim: true, lowercase: true }
+}, { timestamps: true });
+
+const Subscriber = mongoose.model('Subscriber', SubscriberSchema);
+
 // Ensure the local upload folder exists for heavy files
 const uploadDir = path.join(__dirname, 'public/uploads');
 if (!fs.existsSync(uploadDir)) {
@@ -154,6 +161,37 @@ app.post('/api/login', (req, res) => {
 app.get('/admin-logout', (req, res) => {
     req.session.destroy();
     res.redirect('/admin-login');
+});
+
+// ========================================================
+// NEWSLETTER SUBSCRIPTION ROUTE
+// ========================================================
+
+app.post('/subscribe', async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required." });
+        }
+
+        // Check if email already exists to prevent duplicate entries from crashing the server
+        const existingSubscriber = await Subscriber.findOne({ email: email });
+        if (existingSubscriber) {
+            return res.status(200).json({ success: true, message: "Already subscribed!" });
+        }
+
+        // Save new email to MongoDB
+        const newSubscriber = new Subscriber({ email: email });
+        await newSubscriber.save();
+
+        console.log(`✅ New subscriber saved to DB: ${email}`);
+        res.status(200).json({ success: true, message: "Successfully subscribed!" });
+
+    } catch (error) {
+        console.error("❌ Subscription error:", error);
+        res.status(500).json({ success: false, message: "Server error saving subscription." });
+    }
 });
 
 // ========================================================

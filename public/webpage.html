@@ -874,10 +874,12 @@
                 <p class="footer-brand-desc">
                     Building masterpieces with heart, integrity, and innovation. We orchestrate resilient, sustainable, and premium built environments.
                 </p>
-                <div class="footer-newsletter">
-                    <input type="email" class="newsletter-input" placeholder="Your Email">
-                    <button type="button" class="newsletter-submit-btn">Subscribe</button>
-                </div>
+                <form class="footer-newsletter" id="newsletterForm" action="/subscribe" method="POST">
+                    <input type="email" name="email" class="newsletter-input" id="newsletterEmail" placeholder="Your Email" required>
+                    <button type="submit" class="newsletter-submit-btn" id="newsletterBtn">Subscribe</button>
+                    
+                    <p id="newsletterSuccess" style="display: none; color: #4ade80; font-size: 13px; margin-top: 5px; margin-bottom: 0;">Thanks for subscribing!</p>
+                </form>
             </div>
 
             <div class="footer-col links-col">

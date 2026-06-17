@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    // Fetch your dynamic content from your server
     const response = await fetch('/api/content');
     const data = await response.json();
 
@@ -23,13 +24,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const mainContainer = document.querySelector(".content-container");
 
     // ========================================================
-    // 0. DYNAMIC HOMEPAGE MOUNT ROUTE VALIDATOR (index.html / webpage.html / root)
+    // 0. DYNAMIC HOMEPAGE MOUNT ROUTE VALIDATOR
     // ========================================================
     const homeDynamicBox = document.querySelector(".home-projects-dynamic-box");
     if (homeDynamicBox && data.projects) {
         homeDynamicBox.innerHTML = ""; 
 
-        // Take the top 3 latest database array entries exactly like the navbar dropdown layout matrix
         const topThreeHomeProjects = [...data.projects].reverse().slice(0, 3);
 
         topThreeHomeProjects.forEach(project => {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (imgTagMatch && imgTagMatch[1]) {
                 thumbnailStyle = `background-image: url('${imgTagMatch[1]}'); background-size: cover; background-position: center;`;
             } else {
-                thumbnailStyle = `background-color: #1c1917;`; // Flat dark fallback block if no asset image exists
+                thumbnailStyle = `background-color: #1c1917;`; 
             }
 
             projectCardLink.innerHTML = `
@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (mainContainer) {
         const currentPath = window.location.pathname;
 
-        // --- PRESERVATION SYSTEM ---
         const heading = mainContainer.querySelector("h1");
         const subHeading = mainContainer.querySelector(".page-subtitle"); 
         
@@ -71,185 +70,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (subHeading) mainContainer.appendChild(subHeading);
         }
 
-        // ========================================================
-        // 1. PROJECTS WEBPAGE (projects.html)
-        // ========================================================
-        if (currentPath.includes("projects.html") && data.projects) {
-            setupMainHeader();
+        // Logic for specific pages
+        const pageRoutes = [
+            { path: "projects.html", key: "projects", class: "project-section", idPrefix: "project" },
+            { path: "about-story.html", key: "story", class: "project-section", idPrefix: "story" },
+            { path: "about-values.html", key: "values", class: "project-section", idPrefix: "value" },
+            { path: "about-awards.html", key: "awards", class: "award-section", idPrefix: "award" },
+            { path: "news-updates.html", key: "news", class: "news-section", idPrefix: "news" },
+            { path: "blog-articles.html", key: "blogs", class: "blog-section", idPrefix: "blog" },
+            { path: "news-events.html", key: "events", class: "event-section", idPrefix: "event" },
+            { path: "careers.html", key: "careers", class: "career-section", idPrefix: "career" }
+        ];
 
-            [...data.projects].reverse().forEach(project => {
+        const route = pageRoutes.find(r => currentPath.includes(r.path));
+
+        if (route && data[route.key]) {
+            setupMainHeader();
+            [...data[route.key]].reverse().forEach(item => {
                 const article = document.createElement("article");
-                article.id = `project${project.id}`;
-                article.className = "project-section";
+                article.id = `${route.idPrefix}${item.id}`;
+                article.className = route.class;
 
                 article.innerHTML = `
-                    <h2>${project.title}</h2>
-                    ${formatDateString(project.itemDate)}
+                    <h2>${item.title}</h2>
+                    ${formatDateString(item.itemDate)}
                     <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${project.desc}
+                        ${item.desc}
                     </div>
-                    ${createVideoPlayer(project.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 2. OUR STORY WEBPAGE (about-story.html) - MULTIPLE CONTENT FEEDS LIST MATCH
-        // ========================================================
-        else if (currentPath.includes("about-story.html") && data.story) {
-            setupMainHeader();
-
-            [...data.story].reverse().forEach(storyItem => {
-                const article = document.createElement("article");
-                article.id = `story${storyItem.id}`;
-                article.className = "project-section"; 
-
-                article.innerHTML = `
-                    <h2>${storyItem.title}</h2>
-                    ${formatDateString(storyItem.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${storyItem.desc}
-                    </div>
-                    ${createVideoPlayer(storyItem.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 3. CORE VALUES WEBPAGE (about-values.html) - MULTIPLE CONTENT FEEDS LIST MATCH
-        // ========================================================
-        else if (currentPath.includes("about-values.html") && data.values) {
-            setupMainHeader();
-
-            [...data.values].reverse().forEach(valueItem => {
-                const article = document.createElement("article");
-                article.id = `value${valueItem.id}`;
-                article.className = "project-section"; 
-
-                article.innerHTML = `
-                    <h2>${valueItem.title}</h2>
-                    ${formatDateString(valueItem.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${valueItem.desc}
-                    </div>
-                    ${createVideoPlayer(valueItem.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 4. AWARDS WEBPAGE (about-awards.html)
-        // ========================================================
-        else if (currentPath.includes("about-awards.html") && data.awards) {
-            setupMainHeader();
-
-            [...data.awards].reverse().forEach(award => {
-                const article = document.createElement("article");
-                article.id = `award${award.id}`;
-                article.className = "award-section";
-
-                article.innerHTML = `
-                    <h2>${award.title}</h2>
-                    ${formatDateString(award.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${award.desc}
-                    </div>
-                    ${createVideoPlayer(award.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 5. NEWS & UPDATES WEBPAGE (news-updates.html)
-        // ========================================================
-        else if (currentPath.includes("news-updates.html") && data.news) {
-            setupMainHeader();
-
-            [...data.news].reverse().forEach(newsItem => {
-                const article = document.createElement("article");
-                article.id = `news${newsItem.id}`;
-                article.className = "news-section";
-
-                article.innerHTML = `
-                    <h2>${newsItem.title}</h2>
-                    ${formatDateString(newsItem.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${newsItem.desc}
-                    </div>
-                    ${createVideoPlayer(newsItem.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 6. BLOG ARTICLES WEBPAGE (blog-articles.html)
-        // ========================================================
-        else if (currentPath.includes("blog-articles.html") && data.blogs) {
-            setupMainHeader();
-
-            [...data.blogs].reverse().forEach(blog => {
-                const article = document.createElement("article");
-                article.id = `blog${blog.id}`;
-                article.className = "blog-section";
-
-                article.innerHTML = `
-                    <h2>${blog.title}</h2>
-                    ${formatDateString(blog.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${blog.desc}
-                    </div>
-                    ${createVideoPlayer(blog.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 7. EVENTS WEBPAGE (news-events.html)
-        // ========================================================
-        else if (currentPath.includes("news-events.html") && data.events) {
-            setupMainHeader();
-
-            [...data.events].reverse().forEach(event => {
-                const article = document.createElement("article");
-                article.id = `event${event.id}`;
-                article.className = "event-section";
-
-                article.innerHTML = `
-                    <h2>${event.title}</h2>
-                    ${formatDateString(event.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${event.desc}
-                    </div>
-                    ${createVideoPlayer(event.videoPath)}
-                `;
-                mainContainer.appendChild(article);
-            });
-        }
-
-        // ========================================================
-        // 8. CAREERS WEBPAGE (careers.html)
-        // ========================================================
-        else if (currentPath.includes("careers.html") && data.careers) {
-            setupMainHeader();
-
-            [...data.careers].reverse().forEach(career => {
-                const article = document.createElement("article");
-                article.id = `career${career.id}`;
-                article.className = "career-section";
-
-                article.innerHTML = `
-                    <h2>${career.title}</h2>
-                    ${formatDateString(career.itemDate)}
-                    <div class="rich-content-view" style="margin-top:15px; font-family: inherit; line-height:1.6; text-align: left;">
-                        ${career.desc}
-                    </div>
-                    ${createVideoPlayer(career.videoPath)}
+                    ${createVideoPlayer(item.videoPath)}
                 `;
                 mainContainer.appendChild(article);
             });
@@ -262,25 +110,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const previewMenu = document.querySelector(".project-preview-menu");
     if (previewMenu && data.projects) {
         previewMenu.innerHTML = ""; 
-
         const itemsWrapper = document.createElement("div");
         itemsWrapper.className = "dropdown-items-container";
-
         const latestThreeProjects = [...data.projects].reverse().slice(0, 3);
 
         latestThreeProjects.forEach(project => {
             const previewLink = document.createElement("a");
             previewLink.href = `projects.html#project${project.id}`;
             previewLink.className = "preview-item";
-            
             let cleanString = project.desc.replace(/<\/?[^>]+(>|$)/g, "");
-
             const imgTagMatch = project.desc.match(/<img[^>]+src="([^">]+)"/);
-            let thumbnailStyle = '';
-            
-            if (imgTagMatch && imgTagMatch[1]) {
-                thumbnailStyle = `background-image: url('${imgTagMatch[1]}');`;
-            }
+            let thumbnailStyle = imgTagMatch ? `background-image: url('${imgTagMatch[1]}');` : '';
 
             previewLink.innerHTML = `
                 <div class="preview-thumbnail" style="${thumbnailStyle}"></div>
@@ -293,10 +133,50 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         previewMenu.appendChild(itemsWrapper);
+        previewMenu.innerHTML += `<div class="dropdown-footer"><a href="projects.html" class="see-more-btn">See More Projects →</a></div>`;
+    }
 
-        const footerDiv = document.createElement("div");
-        footerDiv.className = "dropdown-footer";
-        footerDiv.innerHTML = `<a href="projects.html" class="see-more-btn">See More Projects →</a>`;
-        previewMenu.appendChild(footerDiv);
+    // ========================================================
+    // NEWSLETTER AJAX FORM SUBMISSION MODULE
+    // ========================================================
+    const newsletterForm = document.getElementById("newsletterForm");
+    
+    if (newsletterForm) {
+        const successMessage = document.getElementById("newsletterSuccess");
+        const submitBtn = document.getElementById("newsletterBtn");
+
+        newsletterForm.addEventListener("submit", async function(event) {
+            event.preventDefault(); 
+            
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+
+            const emailValue = document.getElementById("newsletterEmail").value;
+
+            try {
+                const fetchResponse = await fetch(newsletterForm.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailValue })
+                });
+
+                if (fetchResponse.ok) {
+                    successMessage.style.display = "block";
+                    newsletterForm.reset();
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                    setTimeout(() => { successMessage.style.display = "none"; }, 5000);
+                } else {
+                    alert("Oops! There was a problem saving your email.");
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                alert("Network error. Please make sure the server is running.");
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
     }
 });
