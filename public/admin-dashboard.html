@@ -28,6 +28,18 @@
             font-weight: 800;
             color: #ffffff;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Smooth spacing between logo and text title */
+        }
+
+        /* Forces admin header logo image to fit nicely within the navbar track dimensions */
+        .admin-logo-img {
+            height: 38px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+            border-radius: 4px;
         }
 
         .admin-logout-btn {
@@ -58,6 +70,7 @@
         }
         .nav-tabs {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
         }
         .sub-navbar button {
@@ -229,17 +242,111 @@
             cursor: pointer;
             font-weight: bold;
         }
+
+        /* UI Alignment Rules for Custom Font List Picker inside Admin Workspace */
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="georgia"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="georgia"]::before {
+            content: 'Georgia' !important;
+            font-family: 'Georgia', serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arial"]::before {
+            content: 'Arial' !important;
+            font-family: 'Arial', sans-serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="times-new-roman"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="times-new-roman"]::before {
+            content: 'Times New Roman' !important;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="courier-new"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="courier-new"]::before {
+            content: 'Courier New' !important;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* ========================================================
+           QUILL TOOLBAR SINGLE LINE & TEXT WRAP OVERRIDES
+           ======================================================== */
+        .ql-toolbar.ql-snow {
+            padding: 8px 12px !important;
+            background-color: #f9fafb;
+            border-radius: 4px 4px 0 0;
+        }
+
+        /* Sets a width constraint that naturally wraps text over multiple lines cleanly */
+        .ql-snow .ql-toolbar .ql-picker.ql-font {
+            width: 125px !important;
+            margin-right: 15px !important;
+        }
+
+        /* Restores clean multi-line wrapping and centers typography selection text labels */
+        .ql-snow .ql-toolbar .ql-picker.ql-font .ql-picker-label {
+            padding-left: 4px !important;
+            padding-right: 18px !important; 
+            text-align: center !important;
+            white-space: normal !important; 
+            line-height: 1.2 !important;
+            display: block !important;
+        }
+
+        /* Spacers to give size menus clean distance separation metrics */
+        .ql-snow .ql-toolbar .ql-picker.ql-size {
+            width: 95px !important;
+            margin-right: 12px !important;
+        }
+
+        /* Adds distance padding clusters between individual format menu blocks */
+        .ql-snow .ql-toolbar .ql-formats {
+            margin-right: 12px !important;
+        }
+
+        /* ========================================================
+           QUILL TEXT EDITOR CUSTOM FONT CANVAS MAPPING OPTIONS
+           ======================================================== */
+        /* Assign active typography render rules directly inside the typing canvas */
+        .ql-container .ql-editor .ql-font-georgia,
+        .ql-editor .ql-font-georgia { font-family: 'Georgia', Georgia, serif !important; }
+        
+        .ql-container .ql-editor .ql-font-arial,
+        .ql-editor .ql-font-arial { font-family: 'Arial', Helvetica, sans-serif !important; }
+        
+        .ql-container .ql-editor .ql-font-times-new-roman,
+        .ql-container .ql-font-times-new-roman { font-family: 'Times New Roman', Times, serif !important; }
+        
+        .ql-container .ql-editor .ql-font-courier-new,
+        .ql-editor .ql-font-courier-new { font-family: 'Courier New', Courier, monospace !important; }
+
+        /* ========================================================
+           QUILL PICKER DROPDOWN BLUE STICKY HIGHLIGHT BLUR FIX
+           ======================================================== */
+        /* Resets the sticky browser focus ring on picker buttons after interaction selection clicks */
+        .ql-snow .ql-toolbar .ql-picker:focus {
+            outline: none !important;
+        }
+        .ql-snow .ql-toolbar .ql-picker-label:focus {
+            outline: none !important;
+            color: #444444 !important;
+        }
+        .ql-snow .ql-toolbar .ql-picker.ql-expanded .ql-picker-label {
+            border-color: #ccc !important;
+        }
     </style>
 </head>
 <body>
     <header class="admin-navbar">
-        <div class="admin-company-logo">AECONIC | Webpage Management Center</div>
+        <div class="admin-company-logo">
+            <img src="AECONIC-LOGO.jpg" alt="AECONIC Logo" class="admin-logo-img">
+            <span>AECONIC | Webpage Management Center</span>
+        </div>
         <a href="/admin-logout" class="admin-logout-btn">Log Out</a>
     </header>
 
     <div class="sub-navbar">
         <div class="nav-tabs">
             <button onclick="switchTab('projects')" id="btn-projects" class="active">Projects</button>
+            <button onclick="switchTab('story')" id="btn-story">Our Story</button>
+            <button onclick="switchTab('values')" id="btn-values">Core Values</button>
             <button onclick="switchTab('awards')" id="btn-awards">Awards</button>
             <button onclick="switchTab('news')" id="btn-news">News & Updates</button>
             <button onclick="switchTab('blogs')" id="btn-blogs">Blog Articles</button>
@@ -260,8 +367,10 @@
                 <label style="font-weight: bold;">Title / Heading Entry</label>
                 <input type="text" id="contentTitle" name="title" class="input-box" required>
                 
-                <label style="font-weight: bold; color: #374151; display: block; margin-top: 5px;">Date</label>
-                <input type="date" id="contentDate" name="itemDate" class="input-box" required>
+                <div id="dateFormGroup">
+                    <label style="font-weight: bold; color: #374151; display: block; margin-top: 5px;">Date</label>
+                    <input type="date" id="contentDate" name="itemDate" class="input-box" required>
+                </div>
                 
                 <label style="font-weight: bold; margin-top: 10px; display: block;">Description</label>
                 <div id="editor-container"></div>
@@ -292,6 +401,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
+        // Register custom fonts into the Quill core engine whitelist matrix
+        const Font = Quill.import('formats/font');
+        Font.whitelist = [false, 'georgia', 'arial', 'times-new-roman', 'courier-new'];
+        Quill.register(Font, true);
+
         let currentCategory = 'projects';
         let quill;
 
@@ -300,13 +414,16 @@
                 theme: 'snow',
                 modules: {
                     toolbar: [
-                        [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                        [{ 'align': [] }],
-                        ['link', 'image', 'video'],
-                        ['clean']
+                        [
+                            { 'font': [false, 'georgia', 'arial', 'times-new-roman', 'courier-new'] }, 
+                            { 'size': ['small', false, 'large', 'huge'] },
+                            'bold', 'italic', 'underline', 'strike',
+                            { 'color': [] }, { 'background': [] },
+                            { 'list': 'ordered'}, { 'list': 'bullet' },
+                            { 'align': [] },
+                            'link', 'image', 'video',
+                            'clean'
+                        ]
                     ]
                 }
             });
@@ -327,10 +444,28 @@
             currentCategory = category;
             document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
             document.getElementById(`btn-${category}`).classList.add('active');
-            document.getElementById('panel-title').innerText = `Manage ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+            
+            let displayTitle = category === 'story' ? 'Our Story' : (category === 'values' ? 'Core Values' : category.charAt(0).toUpperCase() + category.slice(1));
+            document.getElementById('panel-title').innerText = `Manage ${displayTitle}`;
+            
+            // DYNAMIC DATE INPUT REMOVAL LOGIC
+            const dateGroup = document.getElementById('dateFormGroup');
+            const dateInput = document.getElementById('contentDate');
+            if (dateGroup && dateInput) {
+                if (category === 'story' || category === 'values') {
+                    dateGroup.style.display = 'none';
+                    dateInput.required = false; 
+                    dateInput.value = ''; 
+                } else {
+                    dateGroup.style.display = 'block';
+                    dateInput.required = true;
+                }
+            }
             
             const frame = document.getElementById('liveFrame');
             if (category === 'projects') frame.src = '/projects.html';
+            else if (category === 'story') frame.src = '/about-story.html';
+            else if (category === 'values') frame.src = '/about-values.html';
             else if (category === 'awards') frame.src = '/about-awards.html';
             else if (category === 'news') frame.src = '/news-updates.html';
             else if (category === 'blogs') frame.src = '/blog-articles.html';
@@ -354,7 +489,11 @@
                     
                     let cleanTextPreview = item.desc.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 90);
                     let videoBadge = item.videoPath ? `<span style="font-size:11px;background:#374151;color:white;padding:2px 6px;border-radius:4px;margin-left:8px;">VIDEO</span>` : '';
-                    let dateBadge = item.itemDate ? `<span style="font-size:11px; background:#e5e7eb; color:#4b5563; padding:2px 6px; border-radius:4px; margin-left:8px;">📅 ${item.itemDate}</span>` : '';
+                    
+                    let dateBadge = '';
+                    if (currentCategory !== 'story' && currentCategory !== 'values' && item.itemDate) {
+                        dateBadge = `<span style="font-size:11px; background:#e5e7eb; color:#4b5563; padding:2px 6px; border-radius:4px; margin-left:8px;">📅 ${item.itemDate}</span>`;
+                    }
                     
                     row.innerHTML = `
                         <div>
