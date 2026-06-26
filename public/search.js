@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { title: "Project 2: Sample", desc: "Framework expansion and centralized system node structures.", target: "projects.html#project2", keywords: ["project", "two", "scaling", "automation"] },
             { title: "Project 3: Sample", desc: "Smart node distribution channels and cross-platform syncing.", target: "projects.html#project3", keywords: ["project", "three", "enterprise", "server"] },
             { title: "Our Story", desc: "Our journey, clear vision, layout design, and system engineering.", target: "about-story.html", keywords: ["story", "journey", "history", "vision"] },
-            { title: "Our Core Values", desc: "Integrity, innovation, and delivering stable modular systems.", target: "about-values.html", keywords: ["value", "core", "integrity", "innovation", "excellence"] },
+            { title: "Our Services", desc: "Integrity, innovation, and delivering stable modular systems.", target: "about-services.html", keywords: ["service", "core", "integrity", "innovation", "excellence"] },
             { title: "Awards & Certification", desc: "Standard ISO validation and safety compliance accreditations.", target: "about-awards.html", keywords: ["award", "certification", "iso", "compliance"] },
             { title: "Careers", desc: "Reviewing candidacies for entry-level roles and full-stack interns.", target: "careers.html", keywords: ["career", "job", "hiring", "intern", "engineer"] },
             { title: "Contact Us", desc: "Get in touch via Email, Facebook, Instagram, or TikTok.", target: "contact.html", keywords: ["contact", "email", "facebook", "instagram", "tiktok"] },

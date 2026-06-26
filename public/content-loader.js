@@ -70,11 +70,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (subHeading) mainContainer.appendChild(subHeading);
         }
 
-        // Logic for specific pages
+        // Logic for specific pages - Updated route and layout key match fields for Services tracking
         const pageRoutes = [
             { path: "projects.html", key: "projects", class: "project-section", idPrefix: "project" },
             { path: "about-story.html", key: "story", class: "project-section", idPrefix: "story" },
-            { path: "about-values.html", key: "values", class: "project-section", idPrefix: "value" },
+            { path: "about-services.html", key: "services", class: "project-section", idPrefix: "service" },
             { path: "about-awards.html", key: "awards", class: "award-section", idPrefix: "award" },
             { path: "news-updates.html", key: "news", class: "news-section", idPrefix: "news" },
             { path: "blog-articles.html", key: "blogs", class: "blog-section", idPrefix: "blog" },

@@ -106,7 +106,7 @@ app.get('/sitemap.xml', async (req, res) => {
             { url: '/careers.html', changefreq: 'monthly', priority: 0.5 },
             { url: '/contact.html', changefreq: 'monthly', priority: 0.5 },
             { url: '/about-story.html', changefreq: 'monthly', priority: 0.5 },
-            { url: '/about-values.html', changefreq: 'monthly', priority: 0.5 },
+            { url: '/about-services.html', changefreq: 'monthly', priority: 0.5 },
             { url: '/about-awards.html', changefreq: 'monthly', priority: 0.5 }
         ];
 
@@ -205,7 +205,7 @@ app.get('/api/content', async (req, res) => {
         
         // Structure the database output to look exactly like your old data.json layout map
         const structuredData = {
-            projects: [], news: [], blogs: [], events: [], careers: [], awards: [], story: [], values: []
+            projects: [], news: [], blogs: [], events: [], careers: [], awards: [], story: [], values: [], services: []
         };
 
         allItems.forEach(item => {
@@ -243,7 +243,7 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
         return res.status(400).json({ success: false, error: 'Required text fields are missing.' });
     }
 
-    const validCategories = ['projects', 'news', 'blogs', 'events', 'careers', 'awards', 'story', 'values'];
+    const validCategories = ['projects', 'news', 'blogs', 'events', 'careers', 'awards', 'story', 'values', 'services'];
     if (!validCategories.includes(category)) {
         return res.status(400).json({ success: false, error: 'Invalid data category mapping token.' });
     }
