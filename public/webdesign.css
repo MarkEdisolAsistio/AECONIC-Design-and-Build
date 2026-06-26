@@ -633,6 +633,12 @@ body {
     border-radius: 6px;
 }
 
+/* Prevents empty lines and paragraph breaks from collapsing on the webpage */
+.rich-content-view p {
+    margin-bottom: 1em; /* Gives a natural block spacing between paragraphs */
+    min-height: 1em;    /* Forces empty lines to occupy actual height on screen */
+}
+
 /* ========================================================
    QUILL RICH TEXT INLINE FONT ENGINES
    ======================================================== */
@@ -640,6 +646,28 @@ body {
 .rich-content-view .ql-font-arial { font-family: 'Arial', Helvetica, sans-serif; }
 .rich-content-view .ql-font-times-new-roman { font-family: 'Times New Roman', Times, serif; }
 .rich-content-view .ql-font-courier-new { font-family: 'Courier New', Courier, monospace; }
+
+/* ========================================================
+   QUILL TEXT EDITOR RICH CONTENT ALIGNMENT MAPPINGS
+   ======================================================== */
+.rich-content-view .ql-align-center {
+    text-align: center !important;
+}
+
+.rich-content-view .ql-align-right {
+    text-align: right !important;
+}
+
+.rich-content-view .ql-align-justify {
+    text-align: justify !important;
+}
+
+/* Fix for embedded images/media matching centered wrapper properties */
+.rich-content-view p.ql-align-center img,
+.rich-content-view p.ql-align-center video {
+    margin: 0 auto;
+    display: block;
+}
 
 /* ========================================================
    MOBILE ACCORDION MECHANICAL HOOKS & CHECKS
