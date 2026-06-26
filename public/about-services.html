@@ -8,6 +8,36 @@
     <link rel="icon" type="image/jpeg" href="AECONIC-LOGO.jpg">
 
     <link rel="stylesheet" href="webdesign.css">
+    <style>
+        /* Ensures dynamic services layout items render with identical depth spacing as projects */
+        .services-feed-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            margin-top: 40px;
+            box-sizing: border-box;
+        }
+        .project-section {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .project-section h2 {
+            color: #111827;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -101,9 +131,13 @@
         </div>
     </nav>
 
-    <main class="content-container" style="max-width: 850px; margin: 128px auto 60px auto;">
-        <h1>Our Services</h1>
-        <div class="page-subtitle" style="text-align: center; margin-bottom: 20px;"></div>
+    <main class="content-container" style="max-width: 850px; margin: 128px auto 60px auto; display: flex; flex-direction: column; align-items: center;">
+        <h1 style="margin-bottom: 10px; color: #111827; text-align: center; font-size: 32px; font-weight: 800;">Our Services</h1>
+        <p class="page-subtitle" style="font-size: 16px; color: #6b7280; margin: 0 auto 20px auto; font-style: italic; text-align: center; max-width: 650px; line-height: 1.6;">
+            Explore our professional solutions designed to deliver structural stability, innovative master planning, and technical craftsman execution.
+        </p>
+        
+        <div class="services-feed-grid" style="width: 100%;"></div>
     </main>
 
     <footer class="main-footer">

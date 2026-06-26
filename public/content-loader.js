@@ -86,6 +86,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (route && data[route.key]) {
             setupMainHeader();
+            
+            // Check if there is a target layout grid wrapper on the page template
+            const gridTarget = document.querySelector('.services-feed-grid');
+            
             [...data[route.key]].reverse().forEach(item => {
                 const article = document.createElement("article");
                 article.id = `${route.idPrefix}${item.id}`;
@@ -99,7 +103,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                     ${createVideoPlayer(item.videoPath)}
                 `;
-                mainContainer.appendChild(article);
+                
+                // If the feed grid exists, drop it there; otherwise drop inside the main container natively
+                if (gridTarget) {
+                    gridTarget.appendChild(article);
+                } else {
+                    mainContainer.appendChild(article);
+                }
             });
         }
     }
