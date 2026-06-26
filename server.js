@@ -32,7 +32,7 @@ mongoose.connect(MONGO_URI)
 const ContentSchema = new mongoose.Schema({
     category: { type: String, required: true, index: true }, // 'projects', 'news', 'blogs', 'story', 'values', etc.
     id: { type: Number, required: true, unique: true },      // Keeps compatibility with your existing frontend code
-    title: { type: String, required: true },
+    title: { type: String, default: '' },                   // Removed strict required flag constraint for flexible empty entries
     desc: { type: String, required: true },
     itemDate: { type: String, default: '' },
     videoPath: { type: String, default: '' }
@@ -79,6 +79,7 @@ app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 app.use(session({
+    secret: 'super-secret-admin-key',
     secret: 'super-secret-admin-key',
     resave: false,
     saveUninitialized: true,
@@ -212,7 +213,7 @@ app.get('/api/content', async (req, res) => {
             if (structuredData[item.category]) {
                 structuredData[item.category].push({
                     id: item.id,
-                    title: item.title,
+                    title: item.title || '',
                     desc: item.desc,
                     itemDate: item.itemDate,
                     videoPath: item.videoPath
@@ -239,7 +240,8 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
 
     const { id, title, desc, itemDate } = req.body;
     
-    if (!title || !desc) {
+    // Core body validator: Dynamic toggle skip title check if handling story or values templates
+    if (!desc || (!title && category !== 'story' && category !== 'values' && category !== 'services')) {
         return res.status(400).json({ success: false, error: 'Required text fields are missing.' });
     }
 
@@ -257,7 +259,7 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
         // EDIT MODE: If a numerical ID tracking parameter exists
         if (id && id.trim() !== '') {
             const targetId = parseInt(id);
-            const updateFields = { title, desc, itemDate: itemDate || '' };
+            const updateFields = { title: title || '', desc, itemDate: itemDate || '' };
             if (req.file) {
                 updateFields.videoPath = videoPath;
             }
@@ -277,7 +279,7 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
         const newItem = new Content({
             id: Date.now(), // Keeps your front-end timeline generation logic safe
             category,
-            title,
+            title: title || '',
             desc,
             itemDate: itemDate || '',
             videoPath: videoPath

@@ -266,7 +266,7 @@
         }
 
         /* ========================================================
-            QUILL TOOLBAR SINGLE LINE & TEXT WRAP OVERRIDES
+           QUILL TOOLBAR SINGLE LINE & TEXT WRAP OVERRIDES
            ======================================================== */
         .ql-toolbar.ql-snow {
             padding: 8px 12px !important;
@@ -302,7 +302,7 @@
         }
 
         /* ========================================================
-            QUILL TEXT EDITOR CUSTOM FONT CANVAS MAPPING OPTIONS
+           QUILL TEXT EDITOR CUSTOM FONT CANVAS MAPPING OPTIONS
            ======================================================== */
         /* Assign active typography render rules directly inside the typing canvas */
         .ql-container .ql-editor .ql-font-georgia,
@@ -318,7 +318,7 @@
         .ql-editor .ql-font-courier-new { font-family: 'Courier New', Courier, monospace !important; }
 
         /* ========================================================
-            QUILL PICKER DROPDOWN BLUE STICKY HIGHLIGHT BLUR FIX
+           QUILL PICKER DROPDOWN BLUE STICKY HIGHLIGHT BLUR FIX
            ======================================================== */
         /* Resets the sticky browser focus ring on picker buttons after interaction selection clicks */
         .ql-snow .ql-toolbar .ql-picker:focus {
@@ -448,15 +448,21 @@
             let displayTitle = category === 'story' ? 'Our Story' : (category === 'services' ? 'Our Services' : category.charAt(0).toUpperCase() + category.slice(1));
             document.getElementById('panel-title').innerText = `Manage ${displayTitle}`;
             
-            // DYNAMIC DATE INPUT REMOVAL LOGIC
+            const titleInput = document.getElementById('contentTitle');
             const dateGroup = document.getElementById('dateFormGroup');
             const dateInput = document.getElementById('contentDate');
-            if (dateGroup && dateInput) {
-                if (category === 'story' || category === 'services') {
+            
+            // Toggle requirements dynamically based on category types
+            if (category === 'story' || category === 'services') {
+                if (titleInput) titleInput.required = false;
+                if (dateGroup && dateInput) {
                     dateGroup.style.display = 'none';
                     dateInput.required = false; 
                     dateInput.value = ''; 
-                } else {
+                }
+            } else {
+                if (titleInput) titleInput.required = true;
+                if (dateGroup && dateInput) {
                     dateGroup.style.display = 'block';
                     dateInput.required = true;
                 }
@@ -477,7 +483,6 @@
         }
 
         async function loadCurrentContent() {
-            // Context intercept query mapping token token check
             const syncQueryToken = currentCategory === 'services' ? 'values' : currentCategory;
             const res = await fetch('/api/content');
             const data = await res.json();
@@ -499,11 +504,11 @@
                     
                     row.innerHTML = `
                         <div>
-                            <strong>${item.title}</strong>${videoBadge}${dateBadge}
+                            <strong>${item.title || '(No Title Entry)'}</strong>${videoBadge}${dateBadge}
                             <p style="font-size:13px;color:#6b7280;margin-top:4px;">${cleanTextPreview}...</p>
                         </div>
                         <div class="btn-group">
-                            <button class="edit-btn" onclick="startEdit(${item.id}, '${escapeHtml(item.title)}')">Edit</button>
+                            <button class="edit-btn" onclick="startEdit(${item.id}, '${escapeHtml(item.title || '')}')">Edit</button>
                             <button class="delete-btn" onclick="deleteItem(${item.id})">Remove</button>
                         </div>
                     `;
@@ -540,7 +545,6 @@
                 formData.append('heavyVideo', fileInput.files[0]);
             }
 
-            // Route execution interception engine mapping variable
             const targetRouteToken = currentCategory === 'services' ? 'values' : currentCategory;
 
             try {
@@ -597,7 +601,6 @@
 
         async function deleteItem(id) {
             if (confirm("Permanently remove this content entry item?")) {
-                // Route execution interception engine mapping variable
                 const targetRouteToken = currentCategory === 'services' ? 'values' : currentCategory;
                 await fetch(`/api/content/${targetRouteToken}/${id}`, { method: 'DELETE' });
                 loadCurrentContent();
