@@ -152,7 +152,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-    if (username === 'admin' && password === 'password123') {
+    if (username === 'Aeconic_admin' && password === 'AEC0NICK0ppi') {
         req.session.isAdmin = true;
         return res.json({ success: true });
     }
