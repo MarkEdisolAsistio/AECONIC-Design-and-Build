@@ -217,16 +217,48 @@
             margin-left: 10px;
             display: none;
         }
+        
+        /* Modified layout loop row properties to include handles safely */
         .item-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px;
             border-bottom: 1px solid #e5e7eb;
+            cursor: grab;
+            gap: 15px;
+            transition: transform 0.15s ease, background-color 0.15s ease;
         }
+        .item-row:active {
+            cursor: grabbing;
+        }
+        .item-row.dragging {
+            opacity: 0.5;
+            background-color: #f3f4f6;
+            border: 1px dashed #9ca3af;
+        }
+        
+        /* Visual Grab Handler Elements */
+        .drag-handle-grip {
+            color: #9ca3af;
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 1px;
+            user-select: none;
+            cursor: grab;
+        }
+        .item-row:active .drag-handle-grip {
+            cursor: grabbing;
+        }
+        .item-details-column {
+            flex: 1;
+            text-align: left;
+        }
+
         .btn-group {
             display: flex;
             gap: 10px;
+            flex-shrink: 0;
         }
         .edit-btn {
             color: #2563eb;
@@ -266,8 +298,8 @@
         }
 
         /* ========================================================
-           QUILL TOOLBAR SINGLE LINE & TEXT WRAP OVERRIDES
-           ======================================================== */
+            QUILL TOOLBAR SINGLE LINE & TEXT WRAP OVERRIDES
+            ======================================================== */
         .ql-toolbar.ql-snow {
             padding: 8px 12px !important;
             background-color: #f9fafb;
@@ -302,8 +334,8 @@
         }
 
         /* ========================================================
-           QUILL TEXT EDITOR CUSTOM FONT CANVAS MAPPING OPTIONS
-           ======================================================== */
+            QUILL TEXT EDITOR CUSTOM FONT CANVAS MAPPING OPTIONS
+            ======================================================== */
         /* Assign active typography render rules directly inside the typing canvas */
         .ql-container .ql-editor .ql-font-georgia,
         .ql-editor .ql-font-georgia { font-family: 'Georgia', Georgia, serif !important; }
@@ -318,8 +350,8 @@
         .ql-editor .ql-font-courier-new { font-family: 'Courier New', Courier, monospace !important; }
 
         /* ========================================================
-           QUILL PICKER DROPDOWN BLUE STICKY HIGHLIGHT BLUR FIX
-           ======================================================== */
+            QUILL PICKER DROPDOWN BLUE STICKY HIGHLIGHT BLUR FIX
+            ======================================================== */
         /* Resets the sticky browser focus ring on picker buttons after interaction selection clicks */
         .ql-snow .ql-toolbar .ql-picker:focus {
             outline: none !important;
@@ -494,6 +526,10 @@
                     const row = document.createElement('div');
                     row.className = 'item-row';
                     
+                    // Added unique track IDs and drag triggers safely here
+                    row.setAttribute('draggable', 'true');
+                    row.setAttribute('data-id', item.id);
+                    
                     let cleanTextPreview = item.desc.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 90);
                     let videoBadge = item.videoPath ? `<span style="font-size:11px;background:#374151;color:white;padding:2px 6px;border-radius:4px;margin-left:8px;">VIDEO</span>` : '';
                     
@@ -502,8 +538,10 @@
                         dateBadge = `<span style="font-size:11px; background:#e5e7eb; color:#4b5563; padding:2px 6px; border-radius:4px; margin-left:8px;">📅 ${item.itemDate}</span>`;
                     }
                     
+                    // Injected the inline .drag-handle-grip and text alignment wrapper blocks smoothly
                     row.innerHTML = `
-                        <div>
+                        <div class="drag-handle-grip">⋮⋮</div>
+                        <div class="item-details-column">
                             <strong>${item.title || '(No Title Entry)'}</strong>${videoBadge}${dateBadge}
                             <p style="font-size:13px;color:#6b7280;margin-top:4px;">${cleanTextPreview}...</p>
                         </div>
@@ -610,6 +648,73 @@
         function escapeHtml(str) {
             return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
         }
+
+        // ========================================================
+        // GLOBAL DRAG AND DROP ENGINE CORE HOOKS
+        // ========================================================
+        const dndContainer = document.getElementById('itemsContainer');
+        let activeDraggedRow = null;
+
+        dndContainer.addEventListener("dragstart", (e) => {
+            activeDraggedRow = e.target.closest(".item-row");
+            if (activeDraggedRow) {
+                activeDraggedRow.classList.add("dragging");
+            }
+        });
+
+        dndContainer.addEventListener("dragend", async () => {
+            if (activeDraggedRow) {
+                activeDraggedRow.classList.remove("dragging");
+                activeDraggedRow = null;
+                
+                // Track current arrangement sequence
+                const standardRows = dndContainer.querySelectorAll(".item-row");
+                const sortedSequenceIds = Array.from(standardRows).map(r => r.getAttribute("data-id"));
+                
+                const targetCategoryToken = currentCategory === 'services' ? 'values' : currentCategory;
+                console.log(`Saving updated sequence index order [Category: ${targetCategoryToken}]:`, sortedSequenceIds);
+                
+                // Send the reordered sequence array live to the backend API route
+                try {
+                    const response = await fetch(`/api/content/${targetCategoryToken}/reorder`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ sequence: sortedSequenceIds })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Dynamically refresh preview context iframe if it is currently visible
+                        const previewPane = document.getElementById('previewPane');
+                        if (previewPane.classList.contains('show-preview')) {
+                            document.getElementById('liveFrame').contentWindow.location.reload();
+                        }
+                    } else {
+                        console.error("Database reordering sync failed:", result.error);
+                    }
+                } catch (err) {
+                    console.error("Network communication failure during sequence sync:", err);
+                }
+            }
+        });
+
+        dndContainer.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            const boundingTarget = e.target.closest(".item-row");
+            if (boundingTarget && boundingTarget !== activeDraggedRow) {
+                const coordinates = boundingTarget.getBoundingClientRect();
+                const preciseVerticalMidpoint = e.clientY - coordinates.top - coordinates.height / 2;
+                
+                if (preciseVerticalMidpoint > 0) {
+                    boundingTarget.after(activeDraggedRow);
+                } else {
+                    boundingTarget.before(activeDraggedRow);
+                }
+            }
+        });
     </script>
 </body>
 </html>

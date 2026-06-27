@@ -35,7 +35,8 @@ const ContentSchema = new mongoose.Schema({
     title: { type: String, default: '' },                   // Removed strict required flag constraint for flexible empty entries
     desc: { type: String, required: true },
     itemDate: { type: String, default: '' },
-    videoPath: { type: String, default: '' }
+    videoPath: { type: String, default: '' },
+    displayOrder: { type: Number, default: 0 }               // Added to support persistent custom sequences
 }, { timestamps: true });
 
 const Content = mongoose.model('Content', ContentSchema);
@@ -79,7 +80,6 @@ app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 app.use(session({
-    secret: 'super-secret-admin-key',
     secret: 'super-secret-admin-key',
     resave: false,
     saveUninitialized: true,
@@ -202,7 +202,8 @@ app.post('/subscribe', async (req, res) => {
 // Fetch all content organized by categories to feed your frontend layout map
 app.get('/api/content', async (req, res) => {
     try {
-        const allItems = await Content.find({});
+        // Enforces systematic list tracking sorted by order values, falling back directly to oldest entries
+        const allItems = await Content.find({}).sort({ displayOrder: 1, createdAt: 1 });
         
         // Structure the database output to look exactly like your old data.json layout map
         const structuredData = {
@@ -276,13 +277,18 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
         }
 
         // ADD MODE: Create a brand new document store record
+        // Track the current maximum displayOrder index within the category to position the new item nicely at the end
+        const maxOrderItem = await Content.findOne({ category }).sort({ displayOrder: -1 });
+        const nextOrderIndex = maxOrderItem && maxOrderItem.displayOrder ? maxOrderItem.displayOrder + 1 : 0;
+
         const newItem = new Content({
             id: Date.now(), // Keeps your front-end timeline generation logic safe
             category,
             title: title || '',
             desc,
             itemDate: itemDate || '',
-            videoPath: videoPath
+            videoPath: videoPath,
+            displayOrder: nextOrderIndex
         });
 
         await newItem.save();
@@ -291,6 +297,33 @@ app.post('/api/content/:category', requireAdmin, upload.single('heavyVideo'), as
     } catch (error) {
         console.error("[ERROR] Failed manipulating database entries:", error);
         res.status(500).json({ success: false, error: "Database transaction failure." });
+    }
+});
+
+// Sync layout sorting array parameters to persist drag and drop results
+app.put('/api/content/:category/reorder', requireAdmin, async (req, res) => {
+    const { category } = req.params;
+    const { sequence } = req.body; // Array tracking numerical item.id sequencing orders
+
+    if (!sequence || !Array.isArray(sequence)) {
+        return res.status(400).json({ success: false, error: "Invalid layout sequence configuration mapping payload." });
+    }
+
+    try {
+        // Execute updates across document collection instances synchronously
+        for (let positionIndex = 0; positionIndex < sequence.length; positionIndex++) {
+            const targetItemId = parseInt(sequence[positionIndex]);
+            await Content.updateOne(
+                { id: targetItemId, category: category },
+                { $set: { displayOrder: positionIndex } }
+            );
+        }
+
+        console.log(`[SUCCESS] Persistent Display Order Index sync complete for category collection: ${category}`);
+        res.json({ success: true, message: "Sequence synchronized securely inside Cloud MongoDBAtlas." });
+    } catch (error) {
+        console.error("[ERROR] Drag sorting arrangement failed writing to MongoDB:", error);
+        res.status(500).json({ success: false, error: "Data serialization index writing fault." });
     }
 });
 

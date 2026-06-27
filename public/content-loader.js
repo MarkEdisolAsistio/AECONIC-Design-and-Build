@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (homeDynamicBox && data.projects) {
         homeDynamicBox.innerHTML = ""; 
 
-        const topThreeHomeProjects = [...data.projects].reverse().slice(0, 3);
+        // Removed raw .reverse() to follow your drag-and-drop sequencing cleanly
+        const topThreeHomeProjects = [...data.projects].slice(0, 3);
 
         topThreeHomeProjects.forEach(project => {
             const projectCardLink = document.createElement("a");
@@ -90,7 +91,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Check if there is a target layout grid wrapper on the page template
             const gridTarget = document.querySelector('.services-feed-grid');
             
-            [...data[route.key]].reverse().forEach(item => {
+            // Removed raw .reverse() to preserve layout index adjustments saved in dashboard
+            [...data[route.key]].forEach(item => {
                 const article = document.createElement("article");
                 article.id = `${route.idPrefix}${item.id}`;
                 article.className = route.class;
@@ -122,7 +124,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         previewMenu.innerHTML = ""; 
         const itemsWrapper = document.createElement("div");
         itemsWrapper.className = "dropdown-items-container";
-        const latestThreeProjects = [...data.projects].reverse().slice(0, 3);
+        
+        // Removed raw .reverse() here as well
+        const latestThreeProjects = [...data.projects].slice(0, 3);
 
         latestThreeProjects.forEach(project => {
             const previewLink = document.createElement("a");

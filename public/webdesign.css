@@ -18,6 +18,28 @@ body {
 }
 
 /* ========================================================
+   ISOLATED DASHBOARD DRAG AND DROP EXTENSIONS
+   ======================================================== */
+.item-row[draggable="true"] {
+    cursor: grab !important;
+    user-select: none;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.item-row[draggable="true"]:active {
+    cursor: grabbing !important;
+}
+
+/* Stylings for the element placeholder currently active in mid-drag transition */
+.item-row.dragging {
+    opacity: 0.45 !important;
+    background-color: #f3f4f6 !important;
+    border: 1px dashed #9ca3af !important;
+    transform: scale(0.99);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ========================================================
    NAVIGATION BAR STRUCTURAL GRID & BRANDING STYLES
    ======================================================== */
 .navbar {
