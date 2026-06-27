@@ -21,13 +21,10 @@
             width: 100%;
             min-height: 68px;
             box-sizing: border-box;
+            position: relative;
         }
 
         .admin-company-logo {
-            font-size: 20px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 12px; /* Smooth spacing between logo and text title */
@@ -40,6 +37,32 @@
             display: block;
             object-fit: contain;
             border-radius: 4px;
+        }
+
+        /* Dual-line stacked workspace typography representation matching frontend styling rules */
+        .admin-logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+        .admin-brand-bold {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .admin-brand-light {
+            font-size: 12px;
+            font-weight: 400;
+            color: #d6d3d1;
+        }
+
+        /* Responsive Mobile Layout Navigation Structural Shell Wrapper Link Aggregators */
+        .admin-nav-menu-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .admin-logout-btn {
@@ -101,6 +124,7 @@
             color: white !important;
             border-color: #374151 !important;
             font-weight: bold;
+            white-space: nowrap;
         }
         .preview-trigger-btn:hover {
             background: #1f2937 !important;
@@ -363,32 +387,175 @@
         .ql-snow .ql-toolbar .ql-picker.ql-expanded .ql-picker-label {
             border-color: #ccc !important;
         }
+
+        /* ========================================================
+            ADMIN MOBILE NAVIGATION COMPONENT MECHANICS OVERRIDES
+            ======================================================== */
+        .admin-menu-toggle-checkbox {
+            display: none;
+        }
+        .admin-hamburger-label {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 3000;
+        }
+        .admin-hamburger-label span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        @media screen and (max-width: 768px) {
+            .admin-navbar {
+                padding: 10px 20px;
+            }
+            .admin-hamburger-label {
+                display: flex;
+            }
+
+            /* Responsive Mobile Drawer - Smoothly collects subnav actions & tabs */
+            .admin-nav-menu-wrapper {
+                position: fixed;
+                top: 68px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 68px);
+                background-color: #292524;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 40px 24px;
+                gap: 24px;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 2500;
+            }
+
+            /* Checkbox State Engine Toggles drawer into view frame visibility */
+            .admin-menu-toggle-checkbox:checked ~ .admin-nav-menu-wrapper {
+                transform: translateX(0);
+            }
+
+            /* Transform horizontal lines cleanly into an 'X' close handle tracking interaction */
+            .admin-menu-toggle-checkbox:checked ~ .admin-hamburger-label span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .admin-menu-toggle-checkbox:checked ~ .admin-hamburger-label span:nth-child(2) {
+                opacity: 0;
+            }
+            .admin-menu-toggle-checkbox:checked ~ .admin-hamburger-label span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            /* Sub-Navbar acts as standard flex wrapper container on mobile screens */
+            .sub-navbar {
+                display: none; /* Subnavbar layout layer disappears on mobile frame view */
+            }
+
+            /* Move selection button lists directly into the vertical core dashboard tray menu links */
+            .admin-nav-menu-wrapper .nav-tabs {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+
+            .admin-nav-menu-wrapper .nav-tabs button {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                background-color: transparent;
+                color: #d6d3d1;
+                border: 1px solid #44403c;
+                text-align: center;
+            }
+
+            .admin-nav-menu-wrapper .nav-tabs button.active {
+                background: #374151;
+                color: white;
+                border-color: #374151;
+            }
+
+            .admin-nav-menu-wrapper .nav-actions {
+                width: 100%;
+                margin-top: 10px;
+                border-top: 1px solid #44403c;
+                padding-top: 25px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .admin-nav-menu-wrapper .preview-trigger-btn {
+                width: 100%;
+                text-align: center;
+                padding: 14px !important;
+                font-size: 16px;
+            }
+
+            .admin-logout-btn {
+                width: 100%;
+                text-align: center;
+                padding: 14px !important;
+                font-size: 16px;
+                box-sizing: border-box;
+            }
+
+            .dashboard-container {
+                margin: 15px;
+                height: auto;
+                flex-direction: column;
+            }
+            .main-panel {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="admin-navbar">
         <div class="admin-company-logo">
             <img src="AECONIC-LOGO.jpg" alt="AECONIC Logo" class="admin-logo-img">
-            <span>AECONIC | Webpage Management Center</span>
+            <div class="admin-logo-text">
+                <span class="admin-brand-bold">AECONIC</span>
+                <span class="admin-brand-light">Webpage Management Center</span>
+            </div>
         </div>
-        <a href="/admin-logout" class="admin-logout-btn">Log Out</a>
+
+        <input type="checkbox" id="admin-menu-toggle" class="admin-menu-toggle-checkbox">
+        
+        <label for="admin-menu-toggle" class="admin-hamburger-label">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <div class="admin-nav-menu-wrapper">
+            <div class="nav-tabs" id="mobile-tabs-container">
+                <button onclick="switchTab('projects'); closeMobileMenu();" id="btn-projects" class="active">Projects</button>
+                <button onclick="switchTab('story'); closeMobileMenu();" id="btn-story">Our Story</button>
+                <button onclick="switchTab('services'); closeMobileMenu();" id="btn-services">Our Services</button>
+                <button onclick="switchTab('awards'); closeMobileMenu();" id="btn-awards">Awards</button>
+                <button onclick="switchTab('news'); closeMobileMenu();" id="btn-news">News & Updates</button>
+                <button onclick="switchTab('blogs'); closeMobileMenu();" id="btn-blogs">Blog Articles</button>
+                <button onclick="switchTab('events'); closeMobileMenu();" id="btn-events">Events</button>
+                <button onclick="switchTab('careers'); closeMobileMenu();" id="btn-careers">Careers</button>
+            </div>
+            <div class="nav-actions">
+                <button onclick="togglePreviewPane(true); closeMobileMenu();" class="preview-trigger-btn">👁️ Fullscreen Preview</button>
+            </div>
+            <a href="/admin-logout" class="admin-logout-btn">Log Out</a>
+        </div>
     </header>
 
-    <div class="sub-navbar">
-        <div class="nav-tabs">
-            <button onclick="switchTab('projects')" id="btn-projects" class="active">Projects</button>
-            <button onclick="switchTab('story')" id="btn-story">Our Story</button>
-            <button onclick="switchTab('services')" id="btn-services">Our Services</button>
-            <button onclick="switchTab('awards')" id="btn-awards">Awards</button>
-            <button onclick="switchTab('news')" id="btn-news">News & Updates</button>
-            <button onclick="switchTab('blogs')" id="btn-blogs">Blog Articles</button>
-            <button onclick="switchTab('events')" id="btn-events">Events</button>
-            <button onclick="switchTab('careers')" id="btn-careers">Careers</button>
+    <div class="sub-navbar" id="desktop-sub-navbar">
         </div>
-        <div class="nav-actions">
-            <button onclick="togglePreviewPane(true)" class="preview-trigger-btn">👁️ Fullscreen Preview</button>
-        </div>
-    </div>
 
     <div class="dashboard-container">
         <div class="main-panel">
@@ -441,7 +608,41 @@
         let currentCategory = 'projects';
         let quill;
 
+        // Dynamic initialization responsive layout DOM handler sync mechanism
+        function setupResponsiveNavigationLayout() {
+            const isMobile = window.innerWidth <= 768;
+            const desktopSubNavbar = document.getElementById('desktop-sub-navbar');
+            const mobileTabsContainer = document.getElementById('mobile-tabs-container');
+            const navActions = document.querySelector('.admin-nav-menu-wrapper .nav-actions');
+
+            if (!isMobile) {
+                // Move elements safely back to standard Desktop tracks
+                if (mobileTabsContainer && mobileTabsContainer.parentElement === document.querySelector('.admin-nav-menu-wrapper')) {
+                    desktopSubNavbar.appendChild(mobileTabsContainer);
+                    desktopSubNavbar.appendChild(navActions);
+                    desktopSubNavbar.style.display = "flex";
+                }
+            } else {
+                // Return structure contexts directly inside standard responsive navigation tray contexts
+                const wrapper = document.querySelector('.admin-nav-menu-wrapper');
+                if (mobileTabsContainer && mobileTabsContainer.parentElement === desktopSubNavbar) {
+                    wrapper.insertBefore(mobileTabsContainer, wrapper.querySelector('.nav-actions'));
+                    wrapper.insertBefore(navActions, wrapper.querySelector('.admin-logout-btn'));
+                    desktopSubNavbar.style.display = "none";
+                }
+            }
+        }
+
+        // Helper interface click utility closes drawer window views elegantly
+        function closeMobileMenu() {
+            document.getElementById('admin-menu-toggle').checked = false;
+        }
+
+        window.addEventListener('resize', setupResponsiveNavigationLayout);
+
         document.addEventListener("DOMContentLoaded", () => {
+            setupResponsiveNavigationLayout();
+            
             quill = new Quill('#editor-container', {
                 theme: 'snow',
                 modules: {
@@ -475,7 +676,8 @@
         function switchTab(category) {
             currentCategory = category;
             document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
-            document.getElementById(`btn-${category}`).classList.add('active');
+            // Update active state triggers concurrently on both structural layout types seamlessly
+            document.querySelectorAll(`[id=btn-${category}]`).forEach(b => b.classList.add('active'));
             
             let displayTitle = category === 'story' ? 'Our Story' : (category === 'services' ? 'Our Services' : category.charAt(0).toUpperCase() + category.slice(1));
             document.getElementById('panel-title').innerText = `Manage ${displayTitle}`;
